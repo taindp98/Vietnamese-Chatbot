@@ -1,0 +1,15 @@
+THPT_QG
+UTXT_ĐHQG
+ĐGNL_ĐHQG
+group,question
+subject,cho e hỏi ngành này xét tuyển tổ hợp môn những môn nào ạ?
+transition,trường mình có tổ chức tuyển sinh liên thông từ cao đẳng lên đại học hệ chính quy không
+,Em muốn hỏi trường spkt tphcm k còn cho lên thông từ tccn lên thẳng hệ đại học cấp bằng chính quy hả trường
+direct_offer,cho em hỏi trường hợp này có được tuyển thẳng vào ngành SP Anh hoặc NN Anh không ạ
+quality,Dạ cho em hỏi ngành CNKT Điện tử điều kiện và tự động hóa hệ đại trà và hệ tiếng Việt khác nhau như thế nào Hệ nào thì tốt hơn
+tuition,Dạ cho e hỏi là, giảm 50% học phí đối với hs nữ của 8 ngành kỹ thuật chỉ áp dụng đối vơi hệ đại trà... hay đối với cả hệ clc tiếng việt nữa ạ?
+address,Trường có bao nhiêu cơ sở sinh viên sẽ học tại đâu?
+major_name,
+major_code,
+accumudate,Điều kiện ăn ở, sinh hoạt ở KTX?
+scholar,Cho em hỏi Trường Đại học Kinh tế - Tài chính thành phố Hồ Chí Minh UEF có chương trình học bổng không ạ?
