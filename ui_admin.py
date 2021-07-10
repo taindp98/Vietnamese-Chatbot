@@ -1,7 +1,21 @@
 from tkinter import *
 import tkinter as tk
 import tkinter.ttk as ttk
+from PIL import Image, ImageTk
 import json
+import pymongo
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+conn_str = os.getenv('MONGOLAB_URI')
+
+myclient = pymongo.MongoClient(conn_str)
+
+mydb = myclient["hcmut"]
+mycol = mydb["investigate"]
+
 
 # Import JSON Path
 f = open('./data/entity_admin.json', encoding="utf8")
@@ -39,6 +53,9 @@ def Combobox(dispname, dictinput, y_place):
     def check(*args):
         # Processing subject in subject_group, type in type_value
         if key == "subject_group":
+            if "" in variable.get():
+                result_dt.update({key.lower(): []})
+                result_dt.update({"subject":[]})
             if "a00" in variable.get():
                 result_dt.update({key.lower(): [variable.get().replace(", ","', '")]})
                 result_dt.update({"subject": ["toán", "vật lý", "hóa học"]})
@@ -73,39 +90,75 @@ def main():
     master.title('Admin Tool')
     master.config(background="#CEE3F6")
 
+    # Insert Image:
+    bard = Image.open("./data/LogoBK.png")
+    bard = bard.resize((130, 130), Image.ANTIALIAS)
+    bardejov = ImageTk.PhotoImage(bard)
+    label1 = Label(master, image=bardejov)
+    label1.image = bardejov
+    label1.config(background="#CEE3F6")
+    label1.place(x = 580, y = 20)
+
+    # Title TOOL ADMIN
+    title1 = tk.Label(master, text='TOOL ADMIN', background="#CEE3F6")
+    title1.config(font=("Courier", 30))
+    title1.place(x = 900, y = 10)
+
+    # Title DỰ ÁN XÂY DỰNG CHATBOT
+    title1 = tk.Label(master, text='DỰ ÁN XÂY DỰNG CHATBOT', background="#CEE3F6")
+    title1.config(font=("Courier", 30))
+    title1.place(x = 770, y = 60)
+
+    # Title TƯ VẤN TUYỂN SINH ĐẠI HỌC
+    title1 = tk.Label(master, text='TƯ VẤN TUYỂN SINH ĐẠI HỌC', background="#CEE3F6")
+    title1.config(font=("Courier", 30))
+    title1.place(x = 730, y = 110)
+
+
+
     # Create Combobox
-    combox1 = Combobox("Mã ngành", {"major_code": data_dt['major_code']}, 20)
-    combox2 = Combobox("Chuyên ngành", {"major_name": data_dt['major_name']}, 80)
-    combox3 = Combobox("Hình thức đào tạo", {"type_edu": data_dt['type_edu']}, 140)
-    combox4 = Combobox("Năm", {"year": data_dt['year']}, 200)
-    combox5 = Combobox("Định hướng nghề nghiệp", {"career": data_dt['career']}, 260)
-    combox7 = Combobox("Học phí", {"tuition": data_dt['tuition']}, 320)
-    combox8 = Combobox("Khối", {"subject_group": data_dt['subject_group']}, 380)
-    combox9 = Combobox("Phương thức tuyển sinh", {"case": data_dt['case']}, 440)
-    combox10 = Combobox("Đối tượng tuyển sinh", {"object": data_dt['object']}, 500)
-    combox11 = Combobox("Đăng ký", {"register": data_dt['register']}, 560)
+    combox1 = Combobox("Mã ngành", {"major_code": sorted(data_dt['major_code'])}, 20)
+    combox2 = Combobox("Chuyên ngành", {"major_name": sorted(data_dt['major_name'])}, 80)
+    combox3 = Combobox("Hình thức đào tạo", {"type_edu": sorted(data_dt['type_edu'])}, 140)
+    combox4 = Combobox("Năm", {"year": sorted(data_dt['year']+['2021','2022'])}, 200)
+    combox5 = Combobox("Định hướng nghề nghiệp", {"career": sorted(data_dt['career'])}, 260)
+    combox7 = Combobox("Học phí", {"tuition": sorted(data_dt['tuition'])}, 320)
+    combox8 = Combobox("Khối", {"subject_group": sorted(data_dt['subject_group'])}, 380)
+    combox9 = Combobox("Phương thức tuyển sinh", {"case": sorted(data_dt['case'])}, 440)
+    combox10 = Combobox("Đối tượng tuyển sinh", {"object": sorted(data_dt['object'])}, 500)
+    combox11 = Combobox("Đăng ký", {"register": sorted(data_dt['register'])}, 560)
     
     point_st = tk.StringVar()
     criteria_st = tk.StringVar()
 
     text = Text(master)
     text.pack(expand=YES, fill=BOTH)
-    text.place(x = 600, y = 55)
+    text.place(x = 650, y = 250)
 
     # Submit Button
     def submit_button():
         output = tk.StringVar()
         point = point_st.get()
+        if point:
+            point = float(point)
         criteria = criteria_st.get()
-        result_dt.update({"point":point, "criteria":criteria})
+        if criteria:
+            criteria = int(criteria)
+            
+        result_dt.update({"point": [point], "criteria": [criteria]})
 
         text = Text(master)
         text.pack(expand=YES, fill=BOTH)
-        text.place(x = 600, y = 55)
+        text.place(x = 650, y = 250)
         
         text.insert(END, str(result_dt).replace('["' , "['").replace('"]' , "']"))
+        # result = str(result_dt).replace('["' , "['").replace('"]' , "']")
 
-    tk.Label(master, text='Output:', background="#CEE3F6").place(x = 600, y = 30)
+        mycol.insert_one(result_dt)
+        # print(result_dt)
+        print('Insert success')
+
+    tk.Label(master, text='Output:', background="#CEE3F6").place(x = 620, y = 220)
 
     tk.Label(master, text='Điểm', background="#CEE3F6").place(x = 120, y = 650)
     point = ttk.Entry(master, textvariable = point_st)                                       
@@ -121,7 +174,5 @@ def main():
 
     mainloop()
 
-    return result_dt 
-
 # Execuse File
-main()
+main = main()

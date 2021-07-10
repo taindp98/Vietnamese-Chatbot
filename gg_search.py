@@ -67,6 +67,7 @@ def pipeline_gg_search(mess,api_key,cse_id):
     dict_search = {}
     dict_search['link'] = result['link']
     dict_search['content'] = print_50_tokens(doc)
+    dict_search['title'] = result['title']
 
     return dict_search
 
@@ -76,4 +77,4 @@ if __name__ == '__main__':
     
     mess = 'học bách khoa tphcm thì chỗ ăn chỗ ở thế nào'
 
-    # print(pipeline_gg_search(mess,api_key,cse_id))
+    print(pipeline_gg_search(mess,api_key,cse_id))
