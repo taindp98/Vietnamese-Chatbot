@@ -187,71 +187,71 @@ def post_api_cse_assistant():
     timestamp = now.timestamp()
     # date_time = now.strftime("%m%d%Y%H%M%S")
     ## modify avoid crash
-    # try:
+    try:
 
-    if "message" not in input_data.keys():
-        return msg(400, "Message cannot be None")
-    else:
-        message = input_data["message"]
-    # print("-------------------------message")
-    # print(message)
-    if "state_tracker_id" not in input_data.keys():
-        state_tracker_id = get_new_id()
-    else:
-        state_tracker_id = input_data["state_tracker_id"]
+        if "message" not in input_data.keys():
+            return msg(400, "Message cannot be None")
+        else:
+            message = input_data["message"]
+        # print("-------------------------message")
+        # print(message)
+        if "state_tracker_id" not in input_data.keys():
+            state_tracker_id = get_new_id()
+        else:
+            state_tracker_id = input_data["state_tracker_id"]
 
-    # print('state_tracker_id ',state_tracker_id)
-    # print('receive_message ',message)
-    # print('StateTracker_Container',StateTracker_Container)
-    # K.clear_session()
-    current_informs = 'null'
-    if not message.startswith('/'):
-        agent_message , agent_action = process_conversation_POST(state_tracker_id, message)
-        if agent_action['intent'] in ["match_found","inform"]:
-            current_informs = StateTracker_Container[state_tracker_id][0].current_informs
+        # print('state_tracker_id ',state_tracker_id)
+        # print('receive_message ',message)
+        # print('StateTracker_Container',StateTracker_Container)
         # K.clear_session()
+        current_informs = 'null'
+        if not message.startswith('/'):
+            agent_message , agent_action = process_conversation_POST(state_tracker_id, message)
+            if agent_action['intent'] in ["match_found","inform"]:
+                current_informs = StateTracker_Container[state_tracker_id][0].current_informs
+            # K.clear_session()
 
-        # print('agent_message',agent_message)
+            # print('agent_message',agent_message)
 
+            res_dict = {}
+            res_dict["code"] = 200
+            res_dict["message"] = agent_message
+            res_dict["state_tracker_id"] = state_tracker_id
+
+            res_dict['agent_action'] = agent_action
+            res_dict['current_informs'] = current_informs
+
+            # print('======================')
+            # print('current_informs',current_informs)
+            # print(res_dict)
+            # return jsonify({"code": 200, "message": agent_message,"state_tracker_id":state_tracker_id,"agent_action":agent_action,"current_informs":current_informs})
+            return jsonify(res_dict)
+        else:
+            res_dict = {}
+            res_dict["code"] = 200
+            res_dict["message"] = []
+            res_dict["state_tracker_id"] = state_tracker_id
+
+            res_dict['agent_action'] = {}
+            res_dict['current_informs'] = {}
+            return jsonify(res_dict)
+
+    except Exception as e:
+        # print('')
+        mongo.db.investigate.insert_one({
+            'time':timestamp,
+            'error':str(e)
+            })
+        print('>'*20)
+        print(str(e))
         res_dict = {}
-        res_dict["code"] = 200
-        res_dict["message"] = agent_message
-        res_dict["state_tracker_id"] = state_tracker_id
-
-        res_dict['agent_action'] = agent_action
-        res_dict['current_informs'] = current_informs
-
-        # print('======================')
-        # print('current_informs',current_informs)
-        # print(res_dict)
-        # return jsonify({"code": 200, "message": agent_message,"state_tracker_id":state_tracker_id,"agent_action":agent_action,"current_informs":current_informs})
-        return jsonify(res_dict)
-    else:
-        res_dict = {}
-        res_dict["code"] = 200
-        res_dict["message"] = []
+        res_dict["code"] = 500
+        res_dict["message"] = [random.choice(DONT_UNDERSTAND)]
         res_dict["state_tracker_id"] = state_tracker_id
 
         res_dict['agent_action'] = {}
         res_dict['current_informs'] = {}
         return jsonify(res_dict)
-
-    # except Exception as e:
-    #     # print('')
-    #     mongo.db.investigate.insert_one({
-    #         'time':timestamp,
-    #         'error':str(e)
-    #         })
-    #     print('>'*20)
-    #     print(str(e))
-    #     res_dict = {}
-    #     res_dict["code"] = 500
-    #     res_dict["message"] = [random.choice(DONT_UNDERSTAND)]
-    #     res_dict["state_tracker_id"] = state_tracker_id
-
-    #     res_dict['agent_action'] = {}
-    #     res_dict['current_informs'] = {}
-    #     return jsonify(res_dict)
 
 @app.route('/api/cse-assistant-conversation-manager/reset-state-tracker', methods=['POST'])
 def post_api_cse_assistant_reset_state_tracker():
