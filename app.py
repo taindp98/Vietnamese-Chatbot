@@ -12,7 +12,7 @@ from agent_response.agent_action import get_agent_action
 from nlg.gen_sentence import response_craft
 from nlg.default_response import response_to_user_free_style
 from nlg.constants_response import *
-from gg_search import pipeline_gg_search
+from google_search.gg_search_prod import pipeline_gg_search
 
 import random
 from datetime import datetime,timezone
@@ -33,12 +33,11 @@ cse_id = os.getenv('CUSTOM_SEARCH_ID')
 
 mongo = PyMongo(app)
 
-FOLDER_PATH = './dqn'
-CONSTANTS_FILE_PATH = f'{FOLDER_PATH}/constants.json'
-# CONSTANT_FILE_PATH = 'constants.json'
+# FOLDER_PATH = './dqn'
+# CONSTANTS_FILE_PATH = f'{FOLDER_PATH}/constants.json'
+CONSTANTS_FILE_PATH = './dqn/constants.json'
 with open(CONSTANTS_FILE_PATH) as f:
     constants = json.load(f)
-# client = pymongo.MongoClient(os.environ.get('MONGOLAB_URI'))
 client = pymongo.MongoClient(os.getenv('MONGOLAB_URI'))
 database = client.hcmut
 
@@ -282,20 +281,6 @@ def post_api_cse_assistant_reset_state_tracker():
     # K.clear_session()
     return jsonify({"code": code, "message": message,"state_tracker_id":state_tracker_id})
 
-
-# @app.route('/api/LT-conversation-manager/extract-information', methods=['POST'])
-# def post_api_extract_information():
-#     input_data = request.json
-#     print(input_data)
-#     if "message" not in input_data.keys():
-#         return msg(400, "Message cannot be None")
-#     else:
-#         message = input_data["message"]
-#         print(message)
-#         emails, phones, names = extract_information(message)
-#         print(emails)
-#         print(phones)
-#     return jsonify({"code": 200, "emails": emails, "phones": phones, "names": names})
 
 
 @app.route("/api/LT-conversation-manager/messages", methods=['POST'])
