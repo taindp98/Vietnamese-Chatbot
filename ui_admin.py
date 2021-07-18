@@ -14,7 +14,9 @@ conn_str = os.getenv('MONGOLAB_URI')
 myclient = pymongo.MongoClient(conn_str)
 
 mydb = myclient["hcmut"]
-mycol = mydb["investigate"]
+# mycol = mydb["investigate"]
+mycol = mydb["general"]
+
 
 
 # Import JSON Path
