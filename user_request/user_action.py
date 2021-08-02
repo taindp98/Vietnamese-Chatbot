@@ -31,6 +31,9 @@ def get_user_request(mess,state_tracker):
     user_action['intent'] = None
     user_action['inform_slots'] = {}
     user_action['request_slots'] = {}
+    user_action['catch_intent'] = {}
+    user_action['catch_intent']['intent'] = "not_intent"
+    user_action['catch_intent']['confidence_score'] = 1.0
     # if isinstance(mess, str) and not mess.startswith('/'):
 
     # print('>'*800)
@@ -43,8 +46,12 @@ def get_user_request(mess,state_tracker):
             # print('--- message ---')
             # print(mess)
 
-            intent_catched, prob,mess_clean = catch_intent(mess)
-            print("intent_catched",intent_catched)
+            intent_catched, prob, mess_clean = catch_intent(mess)
+
+            user_action['catch_intent']['intent'] = intent_catched
+            user_action['catch_intent']['confidence_score'] = prob
+
+            # print("intent_catched",intent_catched)
             # kiểm tra câu nhập vào có phải câu hỏi
             # check_ques = check_question(mess_clean)
             ignore_intent = ['hello','done','other','anything','thanks','not_intent']
@@ -184,5 +191,8 @@ def get_user_request(mess,state_tracker):
             user_action['intent'] = 'start'
             user_action['inform_slots'] = {}
             user_action['request_slots'] = {}
+            user_action['catch_intent'] = {}
+            user_action['catch_intent']['intent'] = "not_intent"
+            user_action['catch_intent']['confidence_score'] = 1.0
 
     return user_action,confirm_obj
