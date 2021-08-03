@@ -7,6 +7,7 @@ from dqn.state_tracker import StateTracker
 # from dqn.utils import remove_empty_slots
 from nlg.gen_sentence import *
 # import pymongo
+import requests
 def get_agent_action(state_tracker,dqn_agent,user_action,done=False):
     # print('='*100)
     # print(user_action)
@@ -43,3 +44,15 @@ def get_agent_action(state_tracker,dqn_agent,user_action,done=False):
     # print(agent_action)
     # print('-----update agent action')
     return agent_action
+
+def get_prob_agent_action(user_action):
+    url = 'https://api-dqn.herokuapp.com/predict'
+    try:
+        pred = requests.post(url,json={'user_action':user_action})
+        # weight for class predict
+        dict_pred = pred.json()
+        conf_score = dict_pred['confidence_score']
+        return conf_score
+    except:
+        conf_score = 0
+        return conf_score

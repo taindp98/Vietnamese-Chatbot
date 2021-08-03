@@ -8,7 +8,7 @@ from dqn.dqn_agent import DQNAgent
 # from keras import backend as K
 from intent.intent_regconize import *
 from user_request.user_action import get_user_request
-from agent_response.agent_action import get_agent_action
+from agent_response.agent_action import get_agent_action,get_prob_agent_action
 from nlg.gen_sentence import response_craft
 from nlg.default_response import response_to_user_free_style
 from nlg.constants_response import *
@@ -92,6 +92,7 @@ def process_conversation_POST(state_tracker_id, message):
 
     user_action, new_confirm_obj = get_user_request(message,state_tracker)
 
+    agent_action_prob = get_prob_agent_action(user_action)
     ## edit
 
     # user_request_slot,user_inform_slot = state_tracker.update_state_user(user_action)
@@ -144,6 +145,7 @@ def process_conversation_POST(state_tracker_id, message):
 
     
     dict_investigate['semantic_frame']['agent'] = {}
+    agent_act['confidence_score'] = agent_action_prob
     dict_investigate['semantic_frame']['agent'] = agent_act
     dict_investigate['semantic_frame']['agent']['message'] = agent_message
     # dict_investigate['fail_pattern'] = 'success'
