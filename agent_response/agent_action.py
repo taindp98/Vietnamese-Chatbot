@@ -43,7 +43,10 @@ def get_agent_action(state_tracker,dqn_agent,user_action,done=False):
     # print('-----update agent action')
     # print(agent_action)
     # print('-----update agent action')
-    return agent_action
+    regex_constraint = state_tracker.regex_constraint
+    # print('*'*10)
+    # print(regex_constraint)
+    return agent_action,regex_constraint
 
 def get_prob_agent_action(user_action):
     url = 'https://api-dqn.herokuapp.com/predict'

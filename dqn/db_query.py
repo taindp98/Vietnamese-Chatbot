@@ -22,6 +22,7 @@ class DBQuery:
         self.cached_db = defaultdict(dict)
         self.no_query = no_query_keys
         self.match_key = usersim_default_key
+        self.regex_constraint = {}
 
     def fill_inform_slot(self, inform_slot_to_fill, current_inform_slots,user_action):
         """
@@ -236,10 +237,10 @@ class DBQuery:
         # results=[]
 
 
-        regex_constraint = self.convert_constraint(new_constraints, user_action)
-        print('#'*100)
-        print('regex_constraint',regex_constraint)
-        results = self.database.general.find(regex_constraint)
+        self.regex_constraint = self.convert_constraint(new_constraints, user_action)
+        # print('#'*100)
+        # print('regex_constraint',regex_constraint)
+        results = self.database.general.find(self.regex_constraint)
         for result in results:
             #đổi từ object id sang string và dùng id đó làm key (thay vì dùng index của mảng để làm key vì không xác định đc index)
             result["_id"] = str(result["_id"])

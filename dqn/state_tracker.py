@@ -47,6 +47,8 @@ class StateTracker:
 
         self.flag_update_agent = False
         self.flag_update_user = False 
+
+        self.regex_constraint = {}
         # self.all_slot = self.current_request_slots + list(self.current_informs.keys())
 
     def get_state_size(self):
@@ -245,6 +247,8 @@ class StateTracker:
             # print('>'*50)
 
             db_results = self.db_helper.get_db_results(self.current_informs,user_action)
+            # print(self.db_helper.regex_constraint)
+            self.regex_constraint = self.db_helper.regex_constraint
             if db_results:
                 # Arbitrarily pick the first value of the dict
                 db_results_no_empty = {}

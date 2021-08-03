@@ -87,8 +87,8 @@ def process_conversation_POST(state_tracker_id, message):
     # print(message)
     # while not (state_tracker.flag_update_agent and state_tracker.flag_update_user):
         # time.sleep(0.1)
-    print('='*50)
-    print(state_tracker.flag_update_agent,state_tracker.flag_update_user)
+    # print('='*50)
+    # print(state_tracker.flag_update_agent,state_tracker.flag_update_user)
 
     user_action, new_confirm_obj = get_user_request(message,state_tracker)
 
@@ -100,7 +100,7 @@ def process_conversation_POST(state_tracker_id, message):
     dict_investigate['semantic_frame']['user'] = {}
     dict_investigate['semantic_frame']['user'] = user_action
     dict_investigate['semantic_frame']['user']['message'] = message
-    
+    dict_investigate['query_string'] = ''
     # if user_action['intent']:
     if user_action['request_slots'] != {}:
         state_tracker.reset()
@@ -113,7 +113,8 @@ def process_conversation_POST(state_tracker_id, message):
     if user_action['intent'] not in ["hello","other","done","thanks",'start']:
         dqn_agent = DQNAgent(state_tracker.get_state_size(), constants)
 
-        agent_act = get_agent_action(state_tracker, dqn_agent, user_action)
+        agent_act,regex_constraint = get_agent_action(state_tracker, dqn_agent, user_action)
+        dict_investigate['query_string'] = str(regex_constraint)
         # print('========================')
         # print('agent action',agent_act)
         # print('========================')
