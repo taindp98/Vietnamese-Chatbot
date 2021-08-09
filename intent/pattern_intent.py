@@ -65,9 +65,9 @@ list_disagree_notification = ['không phải','no','sai rồi','sai']
 THRESHOLD_DISTANCE_SIGNAL_QUESTION = 0.5
 THRESHOLD_PRED_INTENT = {
     # 'other':0.9,
-    'type_edu': 0.85,
-    'case': 0.85,
-    'career': 0.87
+    'type_edu': 0.82,
+    'case': 0.82,
+    'career': 0.8
 }
 
 THRESHOLD_EDIT_DIST = 0.85
