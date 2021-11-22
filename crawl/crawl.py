@@ -154,8 +154,8 @@ def get_post(time_scroll,url):
 
 
 if __name__== '__main__':
-    email = '0387681482'
-    password = '171@3012Hyvy'
+    email = ''
+    password = ''
     time_scroll = 15
 
     url = 'https://www.facebook.com/'
