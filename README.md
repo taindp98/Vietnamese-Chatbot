@@ -36,4 +36,4 @@ Mã nguồn chính được viết trong file [app.py](./app.py)
 ```sh
 $ python3 app.py
 ```
-Sau khi chạy câu lệnh trên một dịch vụ sẽ được chạy nền tại port [localhost:6969](localhost:6969) sẵn sàng để gọi các tác vụ API được trình bày trong Báo cáo Luận văn.
+Sau khi chạy câu lệnh trên một dịch vụ sẽ được chạy nền tại port [localhost:6969](localhost:6969) sẵn sàng để gọi các tác vụ API được trình bày trong Báo cáo.
