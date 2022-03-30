@@ -12,7 +12,5 @@ pyvi==0.1
 requests
 regex
 python-dotenv
-python-Levenshtein
 fuzzywuzzy
-lxml==4.6.3
-google-api-python-client==1.7.11
+lxml==4.6.5
