@@ -13,4 +13,3 @@ requests
 regex
 python-dotenv
 fuzzywuzzy
-lxml==4.6.5
