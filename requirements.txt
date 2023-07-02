@@ -1,5 +1,5 @@
 beautifulsoup4==4.9.3
-Flask==1.1.2
+Flask==2.2.5
 Flask-Cors==3.0.10
 Flask-PyMongo==2.3.0
 grpcio==1.34.0
