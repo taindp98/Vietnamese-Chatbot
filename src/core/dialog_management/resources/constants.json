@@ -1,0 +1,58 @@
+{
+    "rule_requests": [
+        "major_name",
+        "type_edu",
+        "subject_group",
+        "year",
+        "case",
+        "point"
+    ],
+    "agent_inform_slots": [
+        "major_name",
+        "type_edu",
+        "subject_group",
+        "year",
+        "case",
+        "point",
+        "career",
+        "subject",
+        "tuition",
+        "major_code",
+        "criteria",
+        "object",
+        "register",
+        "major"
+    ],
+    "agent_request_slots": [
+        "major_name",
+        "type_edu",
+        "subject_group",
+        "year",
+        "case",
+        "point"
+    ],
+    "all_intents": [
+        "inform",
+        "request",
+        "done",
+        "match_found",
+        "thanks",
+        "reject"
+    ],
+    "all_slots": [
+        "major_name",
+        "type_edu",
+        "subject_group",
+        "year",
+        "case",
+        "point",
+        "career",
+        "subject",
+        "tuition",
+        "major_code",
+        "criteria",
+        "object",
+        "register",
+        "major"
+    ]
+}

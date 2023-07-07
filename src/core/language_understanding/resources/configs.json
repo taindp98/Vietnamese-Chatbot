@@ -1,0 +1,9 @@
+{
+    "threshold_distance_signal_question": 0.5,
+    "threshold_pred_intent":{
+        "type_edu": 0.82,
+        "case": 0.82,
+        "career": 0.8
+    },
+    "threshold_edit_dist": 0.85
+}

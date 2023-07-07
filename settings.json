@@ -1,5 +1,0 @@
-{
-    "code-runner.executorMap": {
-        "python": "~opt/anaconda3/envs/thesis/bin/python"
-    }
-}

@@ -1,0 +1,49 @@
+{
+    "greeting":[
+        "hello","chào","helo","hi"
+    ],
+    "fare_well":[
+        "bye","tạm biệt","bai","gặp lại","pp"
+    ],
+    "thanks":[
+        "cảm ơn","tks","thanks","thank"
+    ],
+    "anything":[
+        "sao cũng được",
+        "gì cũng được",
+        "anything",
+        "s cũng được",
+        "j cũng được",
+        "không biết",
+        "k biết",
+        "ko biết",
+        "không nhớ",
+        "ko nhớ",
+        "k nhớ",
+        "không rõ",
+        "k rõ",
+        "ko rõ",
+        "cũng được",
+        "cũng ok",
+        "cũng không sao",
+        "cũng dc",
+        "cũng k sao",
+        "cũng ko sao"
+    ],
+    "agree":[
+        "yes",
+        "ok",
+        "đúng rồi",
+        "đúng",
+        "chắc vậy",
+        "chính xác",
+        "phải rồi",
+        "vâng"
+    ],
+    "disagree":[
+        "không phải",
+        "no",
+        "sai rồi",
+        "sai"
+    ]
+}

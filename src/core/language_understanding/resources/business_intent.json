@@ -1,0 +1,43 @@
+{
+    "subject_group":[
+        "khối",
+        "tổ hợp khối",
+        "khói",
+        "khoi"
+    ],
+    "tuition":[
+        "học phí",
+        "mắc",
+        "có mắc",
+        "rẻ",
+        "đắt",
+        "tiền",
+        "giá"
+    ],
+    "point":[
+        "điểm",
+        "điểm chuẩn"
+    ],
+    "major_code":[
+        "mã"
+    ],
+    "subject":[
+        "môn thi",
+        "môn"
+    ],
+    "major_name":[
+        "ngành",
+        "nganh"
+    ],
+    "register":[
+        "làm thế nào",
+        "đăng ký",
+        "đăng kí"
+    ],
+    "criteria":[
+        "chỉ tiêu"
+    ],
+    "year":[
+        "năm"
+    ]
+}

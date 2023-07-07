@@ -1,0 +1,74 @@
+{
+    "major_name": [
+        "point",
+        "subject_group"
+    ],
+    "major_code": [
+        "major_name",
+        "type_edu"
+    ],
+    "point": [
+        "major_name",
+        "subject_group",
+        "year",
+        "type_edu",
+        "case"
+    ],
+    "subject_group": [
+        "major_name"
+    ],
+    "subject": [
+        "major_name",
+        "subject_group"
+    ],
+    "tuition": [
+        "type_edu"
+    ],
+    "year": [
+        "major_name",
+        "subject_group",
+        "point"
+    ],
+    "object": [
+        "case",
+        "type_edu",
+        "major_name"
+    ],
+    "register": [
+        "case",
+        "type_edu",
+        "major_name"
+    ],
+    "criteria": [
+        "major_name",
+        "case",
+        "type_edu"
+    ],
+    "type_edu": [
+        "major_name",
+        "subject_group",
+        "case"
+    ],
+    "case": [
+        "major_name",
+        "type_edu"
+    ],
+    "career": [
+        "major_name"
+    ],
+    "all_slot": [
+        "major_name",
+        "type_edu",
+        "subject_group",
+        "year",
+        "case",
+        "point",
+        "career",
+        "subject",
+        "tuition",
+        "major_code",
+        "criteria",
+        "object",
+        "register"
+    ]
+}
