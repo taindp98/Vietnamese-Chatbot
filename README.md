@@ -1,7 +1,3 @@
-# Chatbot University Consultancy
-
-Key Skills: Natural Language Processing, System Design
-
 # Developing a Chatbot system using Deep Learning-based for Universities consultancy
 
 Inspired by the recent successes of deep learning in Natural Language Processing(NLP), we propose a chatbot system using Deep Learning for Vietnamese Universities consultancy. 
@@ -19,15 +15,11 @@ In the following, we define two problems that are at the center of the chatbot s
 - User interface and management interface for administrators:
     - The user interface includes a live chat application on the website and a mobile chat application.
     - The database management tool for administrators to ensure full implementation of the basic CRUD operations.
-        
-        ![Untitled](Chatbot%20University%20Consultancy%20e71cb879364d4e4590389410e79b1b90/Untitled.png)
-        
 
 ## **Quickstart**
 
 To re-product the project, please refer to the repository
 
-[https://github.com/taindp98/Chatbot-University-Consultancy](https://github.com/taindp98/Chatbot-University-Consultancy)
 
 The structure of source code:
 
