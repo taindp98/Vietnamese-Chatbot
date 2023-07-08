@@ -4,6 +4,11 @@ Inspired by the recent successes of deep learning in Natural Language Processing
 
 [https://www.youtube.com/watch?v=SDu7Nhi26kM](https://www.youtube.com/watch?v=SDu7Nhi26kM)
 
+<img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white&style=flat" />
+<img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=white&style=flat" />
+<img alt="MongoDB" src="https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white&style=flat" />
+
+
 ## ⚡ System Design
 
 In the following, we define two problems that are at the center of the chatbot system. The first problem aims to realize the ability of natural language understanding, i.e., developing the necessary mechanism for the software system to understand natural language questions as a human would do. The second problem aims to extract the relevant information from a domain-specific database so that answers can be generated to be fed back to the user. Typically, a dialogue system architecture can be divided into 2 main parts:
@@ -14,7 +19,7 @@ In the following, we define two problems that are at the center of the chatbot s
     - Natural Language Generation (NLG) is based on existing sentence patterns and replaces found information based on semantic frameworks.
 - User interface and management interface for administrators:
     - The user interface includes a live chat application on the website and a mobile chat application.
-    - The database management tool for administrators to ensure full implementation of the basic CRUD operations.
+    - The database management tool for administrators to ensure full implementation of the basic CRUD operations that is **MONGODB**
 
 ## ⚒️ Quickstart
 
@@ -44,7 +49,7 @@ Let’s install the library
 $pip install -r requirements.txt
 ```
 
-Create the ```.env``` file containing the connection string to the DATABASE as the variable environment
+Create the ```.env``` file containing the connection string to the MongoDB service as the variable environment
 ```
 MONGOLAB_URI="mongodb://dev1:abc13579@thesis-shard-00-00.bdisf.mongodb.net:27017,thesis-shard-00-01.bdisf.mongodb.net:27017,thesis-shard-00-02.bdisf.mongodb.net:27017/hcmut?ssl=true&replicaSet=atlas-12fynb-shard-0&authSource=admin&retryWrites=true&w=majority"
 ```
