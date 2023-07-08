@@ -1,5 +1,6 @@
 import json
 
+
 def load_pattern(pattern_file_path: str) -> dict:
     """
     Loading the pattern of intents
@@ -8,7 +9,8 @@ def load_pattern(pattern_file_path: str) -> dict:
     return:
         - the dictionary of content
     """
-    return json.load(open(pattern_file_path, 'r', encoding="utf8"))
+    return json.load(open(pattern_file_path, "r", encoding="utf8"))
+
 
 def convert_list_to_dict(lst):
     """
@@ -22,5 +24,5 @@ def convert_list_to_dict(lst):
     """
 
     if len(lst) > len(set(lst)):
-        raise ValueError('List must be unique!')
+        raise ValueError("List must be unique!")
     return {k: v for v, k in enumerate(lst)}
