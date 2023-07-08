@@ -1,12 +1,13 @@
 import random
 from .utils import load_pattern
+import os
 
 class FiniteStateMachineAgent:
     """The finite state machine agent that interacts with the user."""
 
-    def __init__(self):
+    def __init__(self, root: str):
 
-        constants = load_pattern("./core/dialog_management/resources/constants.json")
+        constants = load_pattern(os.path.join(root, "constants.json"))
         agent_inform_slots = constants['agent_inform_slots']
         agent_request_slots = constants['agent_request_slots']
         rule_requests = constants['rule_requests']

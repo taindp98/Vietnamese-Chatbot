@@ -1,18 +1,22 @@
 import random
 from .utils import load_pattern, string_matching
 import regex as re
+import os
 
 class ResponseGeneration:
-    def __init__(self):
+    def __init__(self, root: str):
         self.response_gallery = dict()
-        default = load_pattern("./core/language_generating/resources/default_response.json")
-        template = load_pattern("./core/language_generating/resources/template_response.json")
+        default = load_pattern(os.path.join(root, "default_response.json"))
+        template = load_pattern(os.path.join(root, "template_response.json"))
         self.response_gallery.update(default)
         self.response_gallery.update(template)
 
     def choose_reponses(self, gallery):
         sentence = random.choice(gallery)
         return [sentence]
+    
+    def free_style(self, intent):
+        return [random.choice(self.response_gallery[intent])]
 
     def run(self, agent_action, state_tracker, confirm_obj, is_greeting=False):
         sentence_pattern = None

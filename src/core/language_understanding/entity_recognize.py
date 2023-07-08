@@ -1,3 +1,4 @@
+import os
 from .utils import load_pattern, find_entity_longest_common
 from collections import OrderedDict
 import string
@@ -5,14 +6,15 @@ import regex as re
 from .intent_recognize import IntentRecognition
 
 class EntityRecognition:
-    def __init__(self) -> None:
-        self.dict_entity = load_pattern("./core/language_understanding/resources/entity.json")
-        self.map_order_entity = load_pattern("./core/language_understanding/resources/map_order_entity.json")
+    def __init__(self, root: str) -> None:
+
+        self.dict_entity = load_pattern(os.path.join(root, "entity.json"))
+        self.map_order_entity = load_pattern(os.path.join(root, "map_order_entity.json"))
         for key, value in self.map_order_entity.items():
             if not key.endswith('inform') and key != 'not_intent':
                 self.map_order_entity[key] = self.map_order_entity[key] + [key]
 
-        self.define_compare = load_pattern("./core/language_understanding/resources/comparison.json")
+        self.define_compare = load_pattern(os.path.join(root, "comparison.json"))
     
     def catch_point(self, mess: str):
         compare_flag = 'lte'

@@ -4,11 +4,11 @@ import copy
 import random
 import pandas as pd
 import itertools
-
+import os 
 class StateTracker:
     """Tracks the state of the episode/conversation and prepares the state representation for the agent."""
 
-    def __init__(self, database):
+    def __init__(self, root: str, database):
         """
         The constructor of StateTracker.
 
@@ -20,8 +20,8 @@ class StateTracker:
             constants (dict): Loaded constants in dict
 
         """
-        constants = load_pattern("./core/dialog_management/resources/constants.json")
-        self.map_order_entity = load_pattern("./core/dialog_management/resources/map_fsm.json")
+        constants = load_pattern(os.path.join(root, "constants.json"))
+        self.map_order_entity = load_pattern(os.path.join(root, "map_fsm.json"))
         self.history = []
         self.db_helper = DBQuery(database)
         self.match_key = "major"

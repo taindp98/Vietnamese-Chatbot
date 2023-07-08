@@ -22,9 +22,9 @@ LIST INTENT FASTAI
 'general_major'
 """
 class UserUnderstand:
-    def __init__(self):
-        self.intent_recognizer = IntentRecognition(ai_service=None)
-        self.entity_recognizer = EntityRecognition()
+    def __init__(self, root: str):
+        self.intent_recognizer = IntentRecognition(root=root, ai_service=None)
+        self.entity_recognizer = EntityRecognition(root=root)
         self.default_intent = "not_intent"
         self.confirm_obj = None
         

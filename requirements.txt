@@ -12,3 +12,6 @@ requests==2.31.0
 regex==2023.6.3
 python-dotenv==0.21.1
 fuzzywuzzy==0.18.0
+django-admin==2.0.2
+django==3.2.20
+djangorestframework==3.14.0

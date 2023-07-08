@@ -2,10 +2,10 @@
 from .utils import clean_text, load_pattern
 import requests
 import json
-
+import os
 
 class IntentRecognition:
-    def __init__(self, ai_service=None):
+    def __init__(self, root: str, ai_service=None):
         """
         args:
             - ai_service: URL of API to call the AI model to predict the intent
@@ -13,10 +13,10 @@ class IntentRecognition:
             intent type, probability, cleaned message
         """
         
-        self.dict_question_signal = load_pattern("./core/language_understanding/resources/question_signal.json")
-        self.dict_random_intent = load_pattern("./core/language_understanding/resources/random_intent.json")
-        self.dict_rule_based_intent = load_pattern("./core/language_understanding/resources/business_intent.json")
-        self.configs = load_pattern("./core/language_understanding/resources/configs.json")
+        self.dict_question_signal = load_pattern(os.path.join(root, "question_signal.json"))
+        self.dict_random_intent = load_pattern(os.path.join(root, "random_intent.json"))
+        self.dict_rule_based_intent = load_pattern(os.path.join(root, "business_intent.json"))
+        self.configs = load_pattern(os.path.join(root, "configs.json"))
         self.ai_service = ai_service
         self.default_intent = "not_intent"
 
