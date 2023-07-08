@@ -1,0 +1,14 @@
+# service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app: flask
+  ports:
+    - protocol: "TCP"
+      port: 8000
+      targetPort: 5000

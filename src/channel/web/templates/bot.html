@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="#">
+  <title>BK Bot</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="/static/styles/style_chatbox.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <!-- partial:index.partial.html -->
+  <section class="msger">
+    <header class="msger-header">
+      <div class="msger-header-title">
+        <i class="fas fa-graduation-cap"></i> DEMO TRỢ LÝ ẢO TƯ VẤN TUYỂN SINH ĐẠI HỌC <i class="fas fa-graduation-cap"></i>
+      </div>
+    </header>
+
+    <main class="msger-chat">
+      <div class="msg left-msg">
+        <div class="msg-img" style="background-image: url(../static/img/logobkcrop.png)"></div>
+
+        <div class="msg-bubble">
+          <div class="msg-info">
+            <div class="msg-info-name">BK Bot</div>
+          </div>
+
+          <div class="msg-text">
+            Xin chào, mình là trợ lý ảo có thể cung cấp cho bạn các thông tin liên quan đến tuyển sinh đại học như: <strong> điểm chuẩn</strong>, <strong> mã ngành</strong>, <strong>cách thức đăng ký</strong>,... cũng như <strong>cơ hội nghề nghiệp</strong> về các ngành/ nhóm ngành đang được đào tạo tại trường <strong>Đại học Bách Khoa Tp.HCM</strong>. <br>Vậy mình có thể giúp được gì cho bạn ? 😄
+          </div>
+        </div>
+      </div>
+      
+    </main>
+    <!-- <div id="webchat" role="main"></div> -->
+    <form class="msger-inputarea" autocomplete="off">
+      <input hidden type="text" class="msger-id" id="visitorId" value = "">
+      <input type="text" class="msger-input" id="textInput" placeholder="Nhập tin nhắn của bạn...">
+      <button type="submit" class="msger-send-btn">Gửi</button>
+    </form>
+  </section>
+  
+  <!-- partial -->
+  <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
+  <script>
+
+    const msgerForm = get(".msger-inputarea");
+    const msgerInput = get(".msger-input");
+    const msgerChat = get(".msger-chat");
+
+    const msgerId  = get(".msger-id")
+
+    // Icons made by Freepik from www.flaticon.com
+    const BOT_IMG = "../static/img/logobkcrop.png";
+    const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
+    const BOT_NAME = "BK Bot";
+    const PERSON_NAME = "You";
+
+    msgerForm.addEventListener("submit", event => {
+      event.preventDefault();
+
+      const msgText = msgerInput.value;
+      const _id = msgerId.value;
+
+      if (!msgText) return;
+
+      appendMessage(PERSON_NAME, PERSON_IMG, "right", [msgText]);
+      msgerInput.value = "";
+      botResponse(msgText,_id);
+    });
+
+    function appendMessage(name, img, side, textList) {
+      //   Simple solution for small apps
+      var additionHTML = "";
+      var text = textList[0];
+      var label = "Xem thêm"
+      if ((textList.length > 1) && (side === "left")){
+        var i, additionText = "<br>" ;
+        additionText += "Một số thông tin khác bạn có thể tham khảo: ";
+        additionText += "<br>";
+        for(i = 1; i < textList.length; i++){
+          // if (textList[i].startsWith('http') == false){
+          additionText += textList[i] + "<br>";
+          // }
+          // else{
+          //   var a = document.createElement('a');
+          //   var linkText = document.createTextNode(textList[i]);
+          //   a.appendChild(linkText);
+          //   a.title = textList[i];
+          //   a.href = textList[i];
+          //   var msgBox = document.getElementByClassName("msg-text");
+          //   msgBox.appendChild(a);
+          //   // document.body.appendChild(a);
+          // }
+          
+        }
+        var additionID = getDateID(new Date());
+        additionHTML = `<div class="msg-text" id="D${additionID}", style="display: none">${additionText}</div>
+        <button id="B${additionID}" onclick="myFunction('${additionID}')">Xem thêm</button>`
+      }
+      const msgHTML = `
+        <div class="msg ${side}-msg">
+          <div class="msg-img" style="background-image: url(${img})"></div>
+          <div class="msg-bubble">
+            <div class="msg-info">
+              <div class="msg-info-name">${name}</div>
+              <div class="msg-info-time">${formatDate(new Date())}</div>
+            </div>
+            <div class="msg-text">${text}</div>
+            ${additionHTML}
+          </div>
+        </div>
+        `;
+
+      msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+      msgerChat.scrollTop += 500;
+    }
+
+    function botResponse(rawText,visitorId) {
+
+      // Bot Response
+      $.get("/get", { msg: rawText , _id: visitorId}).done(function (data) {
+        console.log(rawText);
+        console.log(data);
+        console.log(visitorId);
+        const msgList = data.message_list;
+        console.log(msgList)
+        appendMessage(BOT_NAME, BOT_IMG, "left", msgList);
+      });
+
+    }
+
+
+    // Utils
+    function get(selector, root = document) {
+      return root.querySelector(selector);
+    }
+
+    function formatDate(date) {
+      const h = "0" + date.getHours();
+      const m = "0" + date.getMinutes();
+
+      return `${h.slice(-2)}:${m.slice(-2)}`;
+    }
+
+    function getDateID(date) {
+      return `${date.getTime()}`;
+    }
+
+    function myFunction(additionID) {
+        var x = document.getElementById("D" + additionID);
+        var y = document.getElementById("B" + additionID)
+        if (x.style.display === 'none') {
+            x.style.display = 'block';
+            y.innerText = "Thu gọn";
+        } else {
+            x.style.display = 'none';
+            y.innerText = "Xem thêm"
+        }
+      }
+    
+  </script>
+
+<script>
+  function initFingerprintJS() {
+    FingerprintJS.load({token: 'Wbr219mZHFwhJ3fDcTnw'})
+      .then(fp => fp.get())
+      .then(result => 
+      // console.log(result.visitorId)
+      {document.getElementById('visitorId').value = result.visitorId}
+      );
+  }
+</script>
+<script
+  async
+  src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs-pro@3/dist/fp.min.js"
+  onload="initFingerprintJS()"
+></script>
+
+</body>
+
+</html>
