@@ -2,7 +2,6 @@ beautifulsoup4==4.9.3
 Flask==2.2.5
 Flask-Cors==3.0.10
 Flask-PyMongo==2.3.0
-grpcio==1.34.0
 gunicorn==20.0.4
 h5py==2.10.0
 pandas==1.1.5
