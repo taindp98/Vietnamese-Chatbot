@@ -12,7 +12,8 @@ from core.language_understanding import UserUnderstand
 from core.dialog_management import FiniteStateMachineAgent, StateTracker, get_agent_action
 from core.language_generating import free_style_responses, ResponseGeneration
 
-client = pymongo.MongoClient("mongodb://taindp:chatbot2020@thesis-shard-00-00.bdisf.mongodb.net:27017,thesis-shard-00-01.bdisf.mongodb.net:27017,thesis-shard-00-02.bdisf.mongodb.net:27017/hcmut?ssl=true&replicaSet=atlas-12fynb-shard-0&authSource=admin&retryWrites=true&w=majority")
+load_dotenv()
+client = pymongo.MongoClient(os.getenv('MONGOLAB_URI'))
 database = client.hcmut
 
 WORKSPACE = r"C:\Users\Admin\working\python\mine\Chatbot-University-Consultancy"
