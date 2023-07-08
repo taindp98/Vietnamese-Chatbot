@@ -7,7 +7,7 @@ import random
 
 import pymongo
 
-import time
+import json
 from dotenv import load_dotenv
 
 import sys
@@ -102,8 +102,8 @@ def get_new_id():
 class ConversationManagement(APIView):
     def post(self, request):
         timestamp = datetime.now().timestamp()
-        input_data = request.GET
-        print(f"input_data: {input_data}")
+        body_unicode = request.body.decode('utf-8')
+        input_data = json.loads(body_unicode)
         message = input_data["message"]
         if "state_tracker_id" not in input_data.keys():
             state_tracker_id = get_new_id()
