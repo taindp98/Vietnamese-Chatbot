@@ -7,6 +7,7 @@ Inspired by the recent successes of deep learning in Natural Language Processing
 <img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white&style=flat" />
 <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=white&style=flat" />
 <img alt="MongoDB" src="https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white&style=flat" />
+<img alt="Django" src="https://img.shields.io/badge/Django-092E20?logo=django&logoColor=white&style=flat" />
 </p>
 
 ## ⚡ System Design
@@ -59,7 +60,7 @@ Try using the static function
 ```bash
 $python src/main.py --message "cho em xin điểm chuẩn ngành điện điện tử với ạ"
 ```
-Try using with API
+The API of this project is built up on the abstract of Django, try using with API
 ```bash
 $python src/backend/manage.py runserver
 ```
