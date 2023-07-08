@@ -1,6 +1,7 @@
 import pymongo
 from dotenv import load_dotenv
 import os
+import argparse
 
 from core.language_understanding import UserUnderstand
 from core.dialog_management import FiniteStateMachineAgent
@@ -11,7 +12,7 @@ load_dotenv()
 client = pymongo.MongoClient(os.getenv("MONGOLAB_URI"))
 database = client.hcmut
 
-WORKSPACE = r"C:\Users\Admin\working\python\mine\Chatbot-University-Consultancy"
+WORKSPACE = r"./"
 
 nlu_processor = UserUnderstand(root=os.path.join(WORKSPACE, "resources/nlu"))
 nlg_processor = ResponseGeneration(root=os.path.join(WORKSPACE, "resources/nlg"))
@@ -71,7 +72,18 @@ def main(state_tracker_id, message):
 
 
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--message", 
+        required=False, 
+        default="cho em xin Chỉ tiêu tuyển sinh năm 2020 của khối A1 ngành điện điện tử?", 
+        type=str, 
+        help="Insert your message"
+    )
+
+    args = parser.parse_args()
+
     state_tracker_id = 0
-    message = "cho em xin Chỉ tiêu tuyển sinh năm 2020 của khối A1 ngành điện điện tử?"
-    response = main(state_tracker_id, message)
+    response = main(state_tracker_id, args.message)
     print(response)

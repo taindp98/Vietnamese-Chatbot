@@ -27,7 +27,7 @@ load_dotenv()
 client = pymongo.MongoClient(os.getenv("MONGOLAB_URI"))
 database = client.hcmut
 
-WORKSPACE = r"C:\Users\Admin\working\python\mine\Chatbot-University-Consultancy"
+WORKSPACE = r"./"
 
 nlu_processor = UserUnderstand(root=os.path.join(WORKSPACE, "resources/nlu"))
 nlg_processor = ResponseGeneration(root=os.path.join(WORKSPACE, "resources/nlg"))
@@ -101,7 +101,6 @@ def get_new_id():
 
 class ConversationManagement(APIView):
     def post(self, request):
-        timestamp = datetime.now().timestamp()
         body_unicode = request.body.decode('utf-8')
         input_data = json.loads(body_unicode)
         message = input_data["message"]
