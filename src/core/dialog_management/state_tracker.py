@@ -124,7 +124,7 @@ class StateTracker:
                 agent_action['inform_slots'] = {key: copy.deepcopy(value)}
                 agent_action['inform_slots'][self.match_key] = str(key)
             else:
-                agent_action['inform_slots'][self.match_key] = 'no match available'
+                agent_action['inform_slots'][self.match_key] = 'no_match_available'
             self.current_informs[self.match_key] = agent_action['inform_slots'][self.match_key]
         agent_action.update({'round': self.round_num, 'speaker': 'Agent'})
         self.flag_update_agent = False

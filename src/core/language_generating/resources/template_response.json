@@ -1,0 +1,127 @@
+{
+    "match_found": {
+        "found": [
+            "Thông tin *found_slot* bạn cần: *found_slot_instance*"
+        ],
+        "not_found": [
+            "Mình không tìm thấy ngành nào chứa thông tin *found_slot* mà bạn cần, bạn xem lại các thông tin đã cung cấp dưới đây và điều chỉnh lại giúp mình nhé!"
+        ],
+        "found_major": [
+            "Dưới đây là thông tin bạn cần tìm."
+        ]
+    },
+    "request": {
+        "major_name": [
+            "Bạn định hỏi về *major_name* nào? (Vd: khoa học máy tính, điện điện tử, cơ khí, ...)",
+            "*major_name* là gì vậy bạn? (Vd: khoa học máy tính, điện điện tử, cơ khí, ...)",
+            "Bạn cần thông tin về *major_name* nào? (Vd: khoa học máy tính, điện điện tử, cơ khí, ...)"
+        ],
+        "type_edu": [
+            "*type_edu* bạn cần tìm là gì vậy ạ? (Vd: đại trà,chất lượng cao, tiên tiến)",
+            "Bạn muốn tìm thông tin về *type_edu* nào? (Vd: đại trà,chất lượng cao, tiên tiến)"
+        ],
+        "point": [
+            "Bạn muốn tra cứu mức *point* thế nào ạ?",
+            "Bạn muốn tìm ngành với *point* tầm bao nhiêu ạ?",
+            "Cho mình xin thêm thông tin về *point* mong muốn của bạn được không?"
+        ],
+        "subject_group": [
+            "Bạn muốn tra cứu *subject_group* nào bạn?",
+            "Cụ thể là *subject_group* nào vậy bạn?",
+            "Mời bạn cung cấp thông tin *subject_group* "
+        ],
+        "subject": [
+            "Bạn muốn tìm *subject* nào vậy bạn?"
+        ],
+        "year": [
+            "Bạn cho mình xin *year* cụ thể bạn muốn tìm nha!",
+            "*year* bao nhiêu vậy bạn?"
+        ],
+        "case": [
+            "Bạn cho mình xin *case* cụ thể bạn muốn tìm nha! (Vd: thi tốt nghiệp, đánh giá năng lực, ưu tiên xét tuyển)",
+            "*case* bạn cần tìm là gì vậy ạ? (Vd: thi tốt nghiệp, đánh giá năng lực, ưu tiên xét tuyển)"
+        ],
+        "criteria": [
+            "Bạn cho mình xin *criteria* cụ thể bạn muốn tìm nha!",
+            "*criteria* bạn cần tìm là gì vậy ạ?"
+        ],
+        "object": [
+            "Bạn thuộc *object* nào vậy ạ? (Vd: thi tốt nghiệp, trường chuyên, học sinh giỏi quốc gia,...)"
+        ],
+        "register": [
+            "Bạn muốn *register* theo hình thức nào vậy ạ?",
+            "Bạn muốn lựa chọn hình thức *register* như thế nào vậy ạ? (Vd: đăng ký thi tốt nghiệp, đăng ký ưu tiên xét tuyển,...)"
+        ],
+        "major_code": [
+            "Bạn cho mình xin *major_code* cụ thể bạn muốn tìm nha!",
+            "*major_code* bạn cần tìm là bao nhiêu vậy ạ?"
+        ],
+        "tuition": [
+            "Bạn cho mình xin mức *tuition* cụ thể bạn muốn tìm nha!"
+        ],
+        "career": [
+            "*career* bạn cần tìm là gì vậy ạ?"
+        ]
+    },
+    "inform": {
+        "major_code": [
+            "*major_code_instance* có phải là *major_code* bạn muốn tìm không?"
+        ],
+        "major_name": [
+            "*major_name_instance* có phải là *major_name* bạn đang tìm kiếm không ?"
+        ],
+        "type_edu": [
+            "có phải bạn muốn hỏi về chương trình *type_edu_instance* không?",
+            "*type_edu_instance* có phải là *type_edu* bạn muốn tìm không?"
+        ],
+        "point": [
+            "*point_instance* có phải mức *point* cho ngành bạn đang tìm kiếm không ?"
+        ],
+        "subject_group": [
+            "có phải bạn muốn hỏi về *subject_group_instance* không?",
+            "*subject_group_instance* có phải là *subject_group* bạn muốn tìm không?"
+        ],
+        "year": [
+            "năm *year_instance* có phải là năm bạn tìm kiếm ?"
+        ],
+        "career": [
+            "*career_instance* có phải là *career* của ngành bạn cần tìm ?"
+        ],
+        "subject": [
+            "*subject_instance* thuộc tổ hợp *subject* cho ngành bạn cần tìm phải không ?"
+        ],
+        "tuition": [
+            "*tuition_instance* là *tuition* cho chương trình đào tạo bạn cần tìm phải không ?"
+        ],
+        "major": [
+            "Đây là ngành mình tìm được với yêu cầu hiện tại của bạn: *major_instance*"
+        ],
+        "case": [
+            "*case* bạn cần tìm là *case_instance* phải không ạ ?"
+        ],
+        "criteria": [
+            "*criteria* hiện tại cho chương trình đào tạo bạn cần tìm có phải là *criteria_instance* không ?"
+        ],
+        "object": [
+            "Bạn có phải thuộc *object* là *object_instance* không ?"
+        ],
+        "register": [
+            "*register_instance* có phải là *register* mà bạn lựa chọn không ạ ?"
+        ]
+    },
+    "agent_response_object": {
+        "major_name": "tên ngành",
+        "type_edu": "chương trình đào tạo",
+        "point": "điểm chuẩn",
+        "subject_group": "tổ hợp khối",
+        "subject": "môn thi",
+        "year":"năm",
+        "career": "cơ hội nghề nghiệp",
+        "case": "phương thức tuyển sinh",
+        "criteria": "chỉ tiêu tuyển sinh",
+        "object" : "đối tượng xét tuyển",
+        "register": "cách thức đăng ký",
+        "major_code": "mã ngành",
+        "tuition":"học phí"
+    }
+}

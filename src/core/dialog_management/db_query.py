@@ -79,7 +79,7 @@ class DBQuery:
             filled_inform[key] = list(max(values_dict, key=values_dict.get))
 
         else:
-            filled_inform[key] = 'no match available'
+            filled_inform[key] = 'no_match_available'
 
         return filled_inform
 

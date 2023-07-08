@@ -319,7 +319,7 @@ class UserSimulator:
         self.state['history_slots'][self.default_key] = str(agent_informs[self.default_key])
         self.state['request_slots'].pop(self.default_key, None)
 
-        if agent_informs[self.default_key] == 'no match available':
+        if agent_informs[self.default_key] == 'no_match_available':
             self.constraint_check = FAIL
             # print("match found failed by no match default key")
 
@@ -367,7 +367,7 @@ class UserSimulator:
             return FAIL
         # print("pass rest_slots")
         # TEMP: ----
-        assert self.state['history_slots'][self.default_key] != 'no match available'
+        assert self.state['history_slots'][self.default_key] != 'no_match_available'
 
         match = copy.deepcopy(self.database[int(self.state['history_slots'][self.default_key])])
 

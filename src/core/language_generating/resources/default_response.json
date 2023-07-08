@@ -1,0 +1,37 @@
+{
+    "hello": [
+        "Chào bạn ^^ ! Chúc bạn một ngày tốt lành nè .",
+        "OK chào bạn nè ^^. Cần mình hỗ trợ gì nè ? :3"
+    ],
+    "other": [
+        "Huhu xin lỗi mình không hiểu ý bạn lắm",
+        "Xin lỗi bạn, mình không hiểu ý bạn lắm nè ^^"
+    ],
+    "done": [
+        "OK chào tạm biệt nha ^^ ! Rất vui được giúp bạn nè ",
+        "Okie bái bai bạn nè ^^ ! Rất vui được giúp bạn nè ",
+        "Bye bye nha ! :D Rất vui được giúp bạn nè "
+    ],
+    "thanks": [
+        "OK chào tạm biệt nha ^^ ! Rất vui được giúp bạn nè ",
+        "Okie bái bai bạn nè ^^ ! Rất vui được giúp bạn nè ",
+        "Bye bye nha ! :D Rất vui được giúp bạn nè "
+    ],
+    "start": [
+        "Xin chào, mình là trợ lý ảo có thể cung cấp cho bạn các thông tin liên quan đến tuyển sinh đại học như: điểm chuẩn, mã ngành, cách thức đăng ký,... cũng như cơ hội nghề nghiệp về các ngành/ nhóm ngành đang được đào tạo tại trường Đại học Bách Khoa Tp.HCM. Vậy mình có thể giúp được gì cho bạn ?"
+    ],
+    "greeting": [
+        "Xin chào! Mình là BK Assistant. Mình có thể giúp gì được bạn?",
+        "Hi! BK Assistant có thể giúp gì được bạn đây?"
+    ],
+    "dont_understand": [
+        "Xin lỗi, mình không hiểu. Bạn nói cách khác dễ hiểu hơn được không?",
+        "Mình không hiểu ý bạn lắm"
+    ],
+    "not_found": [
+        "Mình không tìm thấy ngành nào thỏa mãn các thông tin bạn đã cung cấp, vui lòng điều chỉnh lại giúp mình nhé!"
+    ],
+    "empty_slot": [
+        "Bạn muốn tìm thông tin với *request_slot* nào cũng được đúng không ạ ?"
+    ]
+}
