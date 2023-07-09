@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 
 import sys
 import os
+import requests
 
 sys.path.append(r"C:\Users\Admin\working\python\mine\Chatbot-University-Consultancy")
 
@@ -97,6 +98,24 @@ def get_new_id():
 
 
 class ConversationManagement(APIView):
+    def get(self, request):
+        request_content = dict(request.GET)
+        userText = request_content["msg"][0]
+        userId = request_content["_id"][0]
+        api_url = "http://127.0.0.1:8000/conversation"
+        input_data = {}
+        input_data["message"] = str(userText)
+        input_data["state_tracker_id"] = userId
+
+        r = requests.post(url=api_url, json=input_data)
+        chatbot_respose = r.json()
+        mess_response = [
+            item.replace("\n", r"").replace(r'"', r"")
+            for item in chatbot_respose["message"]
+        ]
+         
+        return Response({"message_list": mess_response}, status=200)
+    
     def post(self, request):
         body_unicode = request.body.decode('utf-8')
         input_data = json.loads(body_unicode)
@@ -127,3 +146,9 @@ class ConversationManagement(APIView):
             }
 
         return Response(response_dict, status=200)
+
+def home(request):
+    ui_src_path = os.path.join("templates", "bot.html")
+    return render(request, ui_src_path)
+    
+        

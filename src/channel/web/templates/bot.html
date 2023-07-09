@@ -124,7 +124,7 @@
     function botResponse(rawText,visitorId) {
 
       // Bot Response
-      $.get("/get", { msg: rawText , _id: visitorId}).done(function (data) {
+      $.get("/conversation", { msg: rawText , _id: visitorId}).done(function (data) {
         console.log(rawText);
         console.log(data);
         console.log(visitorId);
