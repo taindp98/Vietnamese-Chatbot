@@ -15,7 +15,6 @@ class ConversationManagement:
         self.text = update.message.text.encode("utf-8").decode()
 
         self.converse_api_url = "https://api-bkbot.herokuapp.com/api/convers-manager"
-        # self.converse_api_url = 'http://e2ebot.azurewebsites.net/api/convers-manager'
         self.input_data = {}
         self.input_data["message"] = self.text
 
