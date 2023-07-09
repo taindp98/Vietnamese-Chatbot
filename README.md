@@ -1,4 +1,4 @@
-# Developing a Chatbot system using Deep Learning-based for Universities consultancy
+# The Implementation of a Vietnamese Chatbot Serving University Consultancy
 
 Inspired by the recent successes of deep learning in Natural Language Processing(NLP), we propose a chatbot system using Deep Learning for Vietnamese Universities consultancy. 
 [https://www.youtube.com/watch?v=SDu7Nhi26kM](https://www.youtube.com/watch?v=SDu7Nhi26kM)
