@@ -84,4 +84,4 @@ if __name__ == "__main__":
 
     state_tracker_id = 0
     response = main(state_tracker_id, args.message)
-    # print(response)
+    print(response)

@@ -19,7 +19,8 @@ class ResponseGeneration:
         return [sentence]
 
     def free_style(self, intent):
-        return [random.choice(self.response_gallery[intent])]
+        sentence = random.choice(self.response_gallery[intent[0]])
+        return [sentence]
 
     def response_inform(self, agent_action):
         sentence_pattern = None
@@ -218,5 +219,4 @@ class ResponseGeneration:
             )
 
         sentence_res = [item.replace(r'"', r"") for item in responses]
-        print(f"sentence_res: {sentence_res}")
         return sentence_res

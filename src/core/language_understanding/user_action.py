@@ -43,6 +43,7 @@ class UserUnderstand:
         ]
 
     def process(self, mess: str, state_tracker):
+        confirm_obj = None
         user_action = {
             "intent": None,
             "inform_slots": {},
