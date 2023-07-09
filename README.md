@@ -47,7 +47,7 @@ Most of the modules are scripted in the Python language version 3.
 Let’s install the library
 
 ```bash
-$pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 Create the ```.env``` file containing the connection string to the MongoDB service as the variable environment
@@ -58,11 +58,11 @@ MONGOLAB_URI="mongodb://dev1:abc13579@thesis-shard-00-00.bdisf.mongodb.net:27017
 Try using the static function
 
 ```bash
-$python src/main.py --message "cho em xin điểm chuẩn ngành điện điện tử với ạ"
+python src/main.py --message "cho em xin điểm chuẩn ngành điện điện tử với ạ"
 ```
 The API of this project is built up on the abstract of Django, try using with API
 ```bash
-$python src/backend/manage.py runserver
+python src/backend/manage.py runserver
 ```
 The ouptut is shown 
 ```
@@ -79,7 +79,7 @@ Quit the server with CTRL-BREAK.
 ```
 This message implies there is an API that are listening on the port 8000 of your machine. To call this:
 ```cURL
-$curl --location --request POST 'http://127.0.0.1:8000/conversation' \
+curl --location --request POST 'http://127.0.0.1:8000/conversation' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "message": "cho em xin chỉ tiêu tuyển sinh năm 2020 của khối A1 ngành điện điện tử?"
@@ -89,3 +89,7 @@ $curl --location --request POST 'http://127.0.0.1:8000/conversation' \
 
 All contributions are welcome. 
 
+## Citation
+```
+T. Le-Tien, T. Nguyen-D-P and V. Huynh-Y, "Developing a Chatbot system using Deep Learning based for Universities consultancy," 2022 16th International Conference on Ubiquitous Information Management and Communication (IMCOM), Seoul, Korea, Republic of, 2022, pp. 1-7, doi: 10.1109/IMCOM53663.2022.9721735.
+```

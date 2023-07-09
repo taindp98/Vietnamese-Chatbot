@@ -7,16 +7,37 @@ from .intent_recognize import IntentRecognition
 
 
 class EntityRecognition:
+    """
+    Find the available entities from the input sentence
+    """
+
     def __init__(self, root: str) -> None:
         self.dict_entity = load_pattern(os.path.join(root, "entity.json"))
         self.map_order_entity = load_pattern(
             os.path.join(root, "map_order_entity.json")
         )
-        for key, value in self.map_order_entity.items():
+        for key, _ in self.map_order_entity.items():
             if not key.endswith("inform") and key != "not_intent":
-                self.map_order_entity[key] = self.map_order_entity[key] + [key]
+                self.map_order_entity[key] += [key]
 
         self.define_compare = load_pattern(os.path.join(root, "comparison.json"))
+        self.configs = load_pattern(os.path.join(root, "configs.json"))
+        # threshold wordnumber
+        self.entity_threshold = {}
+        # matching threshold
+        self.matching_threshold = {}
+        for ent in list(self.dict_entity.keys()):
+            self.entity_threshold[ent] = 4
+            self.matching_threshold[ent] = 0.1
+            for idx, value in enumerate(
+                list(self.configs["num_words_entity_threshold"].values())
+            ):
+                if ent in value:
+                    self.entity_threshold[ent] = idx + 1
+                    break
+            for key, value in list(self.configs["matching_entity_threshold"].items()):
+                if ent == key:
+                    self.matching_threshold[ent] = value
 
     def catch_point(self, mess: str):
         compare_flag = "lte"
@@ -28,10 +49,8 @@ class EntityRecognition:
                     continue
 
         define_regex_point = r"\d*\.\d+|\d+"
-
-        ## split to word
         words = mess.split(" ")
-        list_alphabet = list(string.ascii_lowercase) + list(string.ascii_uppercase)
+        list_alphabet = [string.ascii_lowercase] + [string.ascii_uppercase]
 
         viet_string = (
             "áàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệóòỏõọôốồổỗộơớờởỡợíìỉĩịúùủũụưứừửữựýỳỷỹỵđ"
@@ -80,117 +99,89 @@ class EntityRecognition:
 
         return list_point_res, list_point_regex
 
-    def find(self, intent: str, mess: str):
-        result_entity_dict = {}
-        entity_to_thres = {}
-        for ent in self.map_order_entity[intent]:
-            # threshold wordnumber
-            if ent in ["subject", "tuition", "subject_group", "major_code", "year"]:
-                entity_to_thres[ent] = 1
-            elif ent in ["major_name", "type_edu"]:
-                entity_to_thres[ent] = 2
-            elif ent in ["case"]:
-                entity_to_thres[ent] = 3
-            else:
-                entity_to_thres[ent] = 4
+    def _find_one_entity_type(
+        self, entity_type: str, query: str, gallery: list, bag_of_entity: dict
+    ):
+        limit_loop = 0
+        while True:
+            if limit_loop > 3:
+                break
+            list_longest_entity = find_entity_longest_common(
+                sentence=query, list_entity=gallery
+            )
+            if len(list_longest_entity) == 0:
+                break
 
+            else:
+                if (
+                    list_longest_entity[0]["longest_common_length"]
+                    < self.entity_threshold[entity_type]
+                ):
+                    break
+
+            list_token = query.split(" ")
+            longest_length = None
+            longest_last_idx = None
+            max_match_entity = 0.0
+            for item in list_longest_entity:
+                longest_common_entity_index = item["longest_common_entity_index"]
+                longest_common_length = item["longest_common_length"]
+                end_common_index = item["end_common_index"]
+                list_matched_token = list_token[
+                    end_common_index - longest_common_length + 1 : end_common_index + 1
+                ]
+
+                longest_entity_token = len(
+                    str(gallery[longest_common_entity_index]).split(" ")
+                )
+                score = len(list_matched_token) / longest_entity_token
+                if score > max_match_entity:
+                    max_match_entity = score
+                    longest_length = longest_common_length
+                    longest_last_idx = end_common_index
+            if (
+                longest_length >= self.entity_threshold[entity_type]
+                and max_match_entity > self.matching_threshold[entity_type]
+            ):
+                start_idx = longest_last_idx - longest_length + 1
+                end_idx = longest_last_idx + 1
+                found_entity = " ".join(list_token[start_idx:end_idx])
+
+                if entity_type not in bag_of_entity:
+                    bag_of_entity[entity_type] = []
+                bag_of_entity[entity_type].append(found_entity)
+
+                list_token[start_idx:end_idx] = ["✪"] * longest_length
+                query = " ".join(list_token)
+            limit_loop += 1
+
+        return bag_of_entity
+
+    def find(self, intent: str, mess: str):
+        bag_of_entity = {}
         ordered_real_dict = OrderedDict()
         for ent in self.map_order_entity[intent]:
             ordered_real_dict[ent] = self.dict_entity[ent]
-        for ent, list_entity in ordered_real_dict.items():
-            if ent == "type_edu":
-                matching_threshold = 0.2
-            elif ent == "subject":
-                matching_threshold = 0.55
-            elif ent == "major_name":
-                matching_threshold = 0.35
-            elif ent == "case":
-                matching_threshold = 0.4
 
-            else:
-                matching_threshold = 0.1
-            catch_entity_threshold_loop = 0
-            while True:
-                if catch_entity_threshold_loop > 3:
-                    break
-                list_longest_entity = find_entity_longest_common(mess, list_entity)
-                if list_longest_entity == []:
-                    break
-                if (
-                    list_longest_entity[0]["longest_common_length"]
-                    < entity_to_thres[ent]
-                ):
-                    break
-
-                list_sentence_token = mess.split(" ")
-                greatest_common_length = None
-                greatest_end_common_index = None
-                max_match_entity = 0.0
-                for dict_longest_common_entity in list_longest_entity:
-                    longest_common_entity_index = dict_longest_common_entity[
-                        "longest_common_entity_index"
-                    ]
-                    longest_common_length = dict_longest_common_entity[
-                        "longest_common_length"
-                    ]
-                    end_common_index = dict_longest_common_entity["end_common_index"]
-                    list_sentence_token_match = list_sentence_token[
-                        end_common_index
-                        - longest_common_length
-                        + 1 : end_common_index
-                        + 1
-                    ]
-
-                    list_temp_longest_entity_token = str(
-                        list_entity[longest_common_entity_index]
-                    ).split(" ")
-                    score = len(list_sentence_token_match) / float(
-                        len(list_temp_longest_entity_token)
-                    )
-                    if score > max_match_entity:
-                        max_match_entity = score
-                        greatest_common_length = longest_common_length
-                        greatest_end_common_index = end_common_index
-                if (
-                    greatest_common_length >= entity_to_thres[ent]
-                    and max_match_entity > matching_threshold
-                ):
-                    start_idx = greatest_end_common_index - greatest_common_length + 1
-                    end_idx = greatest_end_common_index + 1
-                    result = " ".join(list_sentence_token[start_idx:end_idx])
-
-                    if ent in result_entity_dict:
-                        result_entity_dict[ent].append(result)
-                    else:
-                        result_entity_dict[ent] = [result]
-                    list_sentence_token[start_idx:end_idx] = [
-                        "✪"
-                    ] * greatest_common_length
-                    mess = " ".join(list_sentence_token)
-                catch_entity_threshold_loop += 1
-
-        point_entity, list_point_regex = self.catch_point(mess)
-        list_entity_found = list(result_entity_dict.values())
+        # 1. Skimming all entities pattern in the gallery
+        for entity_type, gallery in ordered_real_dict.items():
+            bag_of_entity = self._find_one_entity_type(
+                entity_type=entity_type,
+                query=mess,
+                gallery=gallery,
+                bag_of_entity=bag_of_entity,
+            )
+        # 2. Focus on the "point" entity
+        point_entity, _ = self.catch_point(mess)
         confirm_obj = None
-        if list_entity_found:
-            for p in list_point_regex:
-                for sublist_entity in list_entity_found:
-                    for e in sublist_entity:
-                        if p not in e and point_entity:
-                            result_entity_dict["point"] = point_entity
-
-                            if intent in result_entity_dict:
-                                value = result_entity_dict.pop(intent)
-                                confirm_obj = {intent: value}
-        else:
-            if point_entity:
-                result_entity_dict["point"] = point_entity
-
-        if intent in result_entity_dict:
-            value = result_entity_dict.pop(intent)
+        if point_entity:
+            bag_of_entity["point"] = point_entity
+        # 3. Remove the entity if it and intent are the same
+        if intent in bag_of_entity:
+            value = bag_of_entity.pop(intent)
             confirm_obj = {intent: value}
 
-        return result_entity_dict, confirm_obj
+        return bag_of_entity, confirm_obj
 
 
 if __name__ == "__main__":

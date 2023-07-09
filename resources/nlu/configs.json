@@ -1,9 +1,30 @@
 {
     "threshold_distance_signal_question": 0.5,
-    "threshold_pred_intent":{
+    "threshold_pred_intent": {
         "type_edu": 0.82,
         "case": 0.82,
         "career": 0.8
     },
-    "threshold_edit_dist": 0.85
+    "threshold_edit_dist": 0.85,
+    "num_words_entity_threshold": {
+        "group_1": [
+            "subject",
+            "tuition",
+            "subject_group",
+            "major_code",
+            "year"
+        ],
+        "group_2":[
+            "major_name", "type_edu"
+        ],
+        "group_3":[
+            "case"
+        ]
+    },
+    "matching_entity_threshold":{
+        "type_edu": 0.2,
+        "subject": 0.55,
+        "major_name": 0.35,
+        "case": 0.4
+    }
 }
