@@ -56,7 +56,7 @@ class IntentRecognition:
         if pred["probability"] >= self.configs[pred["intent"]]:
             return pred["intent"], pred["probability"]
         else:
-            return "other", 1.0
+            return "not_intent", 1.0
 
     def predict(self, mess: str):
         """

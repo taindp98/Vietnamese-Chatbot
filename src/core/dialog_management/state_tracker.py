@@ -119,13 +119,14 @@ class StateTracker:
             self.regex_constraint = self.db_helper.regex_constraint
             if db_results:
                 db_results_no_empty = {}
-                if self.current_request_slots[0] != self.match_key:
-                    for key, value in db_results.items():
-                        if (
-                            isinstance(value[self.current_request_slots[0]], list)
-                            and len(value[self.current_request_slots[0]]) > 0
-                        ):
-                            db_results_no_empty[key] = copy.deepcopy(value)
+                if len(self.current_request_slots) != 0:
+                    if self.current_request_slots[0] != self.match_key:
+                        for key, value in db_results.items():
+                            if (
+                                isinstance(value[self.current_request_slots[0]], list)
+                                and len(value[self.current_request_slots[0]]) > 0
+                            ):
+                                db_results_no_empty[key] = copy.deepcopy(value)
                 if db_results_no_empty:
                     key, value = list(db_results_no_empty.items())[0]
                     value = list(db_results_no_empty.values())
@@ -169,14 +170,20 @@ class StateTracker:
                 'speaker': 'User'
             )
         """
-
+        print(f"user_action: {user_action}")
         for key, value in user_action["inform_slots"].items():
             self.current_informs[key] = value
 
         for key, value in user_action["request_slots"].items():
             if key not in self.current_request_slots:
                 self.current_request_slots.append(key)
-        user_action.update({"round": self.round_num, "speaker": "User"})
+        
+        user_action.update(
+            {
+                "round": self.round_num,
+                "speaker": "User"
+            }
+        )
         self.flag_update_user = False
         self.history.append(user_action)
         if self.round_num == 0 or user_action["intent"] == "request":
@@ -185,7 +192,9 @@ class StateTracker:
             )
             self.pattern_target = (
                 self.all_slot
-                + self.map_order_entity[self.current_request_slots[0]].copy()
+                + self.map_order_entity[
+                    self.current_request_slots[0]
+                ] if len(self.current_request_slots) != 0 else []
             )
             self.list_state_tracker += self.all_slot
         self.round_num += 1

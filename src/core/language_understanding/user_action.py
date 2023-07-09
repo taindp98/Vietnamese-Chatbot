@@ -36,7 +36,6 @@ class UserUnderstand:
             "disagree",
             "greeting",
             "fare_well",
-            "other",
             "anything",
             "thanks",
             "not_intent",

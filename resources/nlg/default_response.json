@@ -3,10 +3,6 @@
         "Chào bạn ^^ ! Chúc bạn một ngày tốt lành nè .",
         "OK chào bạn nè ^^. Cần mình hỗ trợ gì nè ? :3"
     ],
-    "other": [
-        "Huhu xin lỗi mình không hiểu ý bạn lắm",
-        "Xin lỗi bạn, mình không hiểu ý bạn lắm nè ^^"
-    ],
     "done": [
         "OK chào tạm biệt nha ^^ ! Rất vui được giúp bạn nè ",
         "Okie bái bai bạn nè ^^ ! Rất vui được giúp bạn nè ",
@@ -24,9 +20,11 @@
         "Xin chào! Mình là BK Assistant. Mình có thể giúp gì được bạn?",
         "Hi! BK Assistant có thể giúp gì được bạn đây?"
     ],
-    "dont_understand": [
+    "not_intent": [
         "Xin lỗi, mình không hiểu. Bạn nói cách khác dễ hiểu hơn được không?",
-        "Mình không hiểu ý bạn lắm"
+        "Mình không hiểu ý bạn lắm",
+        "Huhu xin lỗi mình không hiểu ý bạn lắm",
+        "Xin lỗi bạn, mình không hiểu ý bạn lắm nè ^^"
     ],
     "not_found": [
         "Mình không tìm thấy ngành nào thỏa mãn các thông tin bạn đã cung cấp, vui lòng điều chỉnh lại giúp mình nhé!"

@@ -62,10 +62,10 @@ def process_message(state_tracker_id, message):
     ## 2. DM
     if user_action["intent"] not in [
         "greeting",
-        "other",
         "fare_well",
         "thanks",
         "start",
+        "not_intent"
     ]:
         fsm_agent = FiniteStateMachineAgent()
 
@@ -108,6 +108,7 @@ class ConversationManagement(APIView):
         input_data["state_tracker_id"] = userId
 
         r = requests.post(url=api_url, json=input_data)
+        print(f'response: {r}')
         chatbot_respose = r.json()
         mess_response = [
             item.replace("\n", r"").replace(r'"', r"")

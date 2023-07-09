@@ -44,7 +44,7 @@ def main(state_tracker_id, message):
     # 2. DM
     if not user_action["intent"] in [
         "greeting",
-        "other",
+        "not_intent",
         "fare_well",
         "thanks",
         "start",
