@@ -1,2 +1,2 @@
 from .utils import load_pattern
-from .gen_sentence import ResponseGeneration
+from .response_generation import ResponseGeneration

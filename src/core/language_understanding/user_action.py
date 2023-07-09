@@ -50,7 +50,7 @@ class UserUnderstand:
             "request_slots": {},
             "catch_intent": {"intent": self.default_intent, "confidence_score": 1.0},
         }
-
+        histories = state_tracker.history
         if isinstance(mess, str):
             if not mess.startswith("/"):
                 catched_intent, prob, cleaned_mess = self.intent_recognizer.predict(
@@ -68,8 +68,9 @@ class UserUnderstand:
                     user_action["inform_slots"] = dict_entity_inform
                     user_action["request_slots"] = {catched_intent: "UNK"}
 
-                elif catched_intent in ["not_intent"]:
-                    last_agent_action = state_tracker.history[-1]
+                elif catched_intent in ["not_intent"] and len(histories) != 0:
+                    # check conversation history
+                    last_agent_action =  histories[-1]
                     if last_agent_action["intent"] != "match_found":
                         user_inform_key = None
                         slot_inform = None

@@ -5,6 +5,9 @@ import os
 
 class ResponseGeneration:
     def __init__(self, root: str):
+        """
+        Generate the natural language from the semantic frame
+        """
         self.response_gallery = dict()
         default = load_pattern(os.path.join(root, "default_response.json"))
         template = load_pattern(os.path.join(root, "template_response.json"))

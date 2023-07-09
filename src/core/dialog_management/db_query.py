@@ -127,30 +127,19 @@ class DBQuery:
 
     def convert_constraint(self, constraints):
         """
-        input dict các thực thể theo từng slot {entity_slot:[entity_mess]}
+        input dict for each slot {entity_slot:[entity_mess]}
         return câu query mongodb
-        form của câu query: { "$and": [{entity_slot:{"$all":[re.compile("entity_mess")]}},{},{}] }
+        form of query string: { "$and": [{entity_slot:{"$all":[re.compile("entity_mess")]}},{},{}] }
         """
-        # global listkeys
-        # listkeys = []
-        # if user_action["intent"] == "request":
 
         list_and_out = []
         list_and_in = []
         regex_constraint_dict = {}
-        # print('----')
-        # print(constraints)
         for keys, values in constraints.items():
-            # print(values)
             if keys != "point":
                 if not type(values) is list:
                     values = []
                 for value in values:
-                    # print("value",value)
-                    # print("keys",keys)
-                    # if not type(value) is list:
-                    # value = []
-
                     list_and_in.append(
                         {
                             "$or": [
@@ -167,14 +156,14 @@ class DBQuery:
             list_and_out.append({"$and": list_and_in})
         if list_and_out:
             regex_constraint_dict = {"$and": list_and_out}
-        # print("regex_constraint_dict",regex_constraint_dict)
         return regex_constraint_dict
 
     def get_db_results(self, constraints, user_action):
         """
         Get all items in the database that fit the current constraints.
 
-        Looks at each item in the database and if its slots contain all constraints and their values match then the item
+        Looks at each item in the database and if its slots contain all constraints
+        and their values match then the item
         is added to the return dict.
 
         Parameters:
@@ -184,17 +173,12 @@ class DBQuery:
             dict: The available items in the database
         """
 
-        # Filter non-queryable items and keys with the value 'anything' since those are inconsequential to the constraints
         new_constraints = {
             k: v
             for k, v in constraints.items()
             if k not in self.no_query and v is not "anything"
         }
-        # print('>'*50)
-        # print(new_constraints)
-        # print('>'*50)
         tuple_new_constraint = copy.deepcopy(new_constraints)
-        # print(tuple_new_constraint)
         inform_items = {k: tuple(v) for k, v in tuple_new_constraint.items()}.items()
         inform_items = frozenset(inform_items)
 
@@ -221,23 +205,24 @@ class DBQuery:
 
     def get_db_results_for_slots(self, current_informs, user_action):
         """
-        Counts occurrences of each current inform slot (key and value) in the database items.
+        Counts occurrences of each current inform slot (key and value)
+        in the database items.
 
-        For each item in the database and each current inform slot if that slot is in the database item (matches key
+        For each item in the database and each current inform slot if
+        that slot is in the database item (matches key
         and value) then increment the count for that key by 1.
 
         Parameters:
             current_informs (dict): The current informs/constraints
 
         Returns:
-            dict: Each key in current_informs with the count of the number of matches for that key
+            dict: Each key in current_informs with the count of the number
+            of matches for that key
         """
 
         tuple_current_informs = copy.deepcopy(current_informs)
-        # print(tuple_current_informs)
         inform_items = {k: tuple(v) for k, v in tuple_current_informs.items()}.items()
         inform_items = frozenset(inform_items)
-        # # A dict of the inform keys and their counts as stored (or not stored) in the cached_db_slot
         cache_return = self.cached_db_slot[inform_items]
 
         temp_current_informs = copy.deepcopy(current_informs)

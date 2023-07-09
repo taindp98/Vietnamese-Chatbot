@@ -8,13 +8,13 @@ import os
 
 
 class StateTracker:
-    """Tracks the state of the episode/conversation and prepares the state representation for the agent."""
-
+    """Tracks the state of the episode/conversation an
+        prepares the state representation for the agent.    
+    """
     def __init__(self, root: str, database):
         """
         The constructor of StateTracker which creates a DB query object,
         creates necessary state rep. dicts, etc. and calls reset.
-
         Parameters:
             database (dict): The database with format dict(long: dict)
         """
@@ -69,20 +69,28 @@ class StateTracker:
 
     def update_state_agent(self, agent_action, user_action):
         """
-        Updates the dialogue history with the agent's action and augments the agent's action.
+        Updates the dialogue history with the agent's action and 
+				augments the agent's action.
         Takes an agent action and updates the history. 
         Also augments the agent_action param with query information and
         any other necessary information.
 
         Parameters:
             agent_action (dict):
-                The agent action of format dict('intent': string, 'inform_slots': dict,
-                'request_slots': dict) and changed to dict('intent': '', 'inform_slots': {},
-                'request_slots': {}, 'round': int, 'speaker': 'Agent')
+                The agent action of format dict(
+									'intent': string, 
+									'inform_slots': dict,
+	                'request_slots': dict
+								) 
 
+								and changed to dict(
+									'intent': '', 
+									'inform_slots': {},
+	                'request_slots': {}, 
+									'round': int, 
+									'speaker': 'Agent'
+								)
         """
-        # print('current_informs --> constraints',self.current_informs)
-        # print('agent action',agent_action['inform_slots'])
         db_results_dict = self.db_helper.get_db_results_for_slots(
             self.current_informs, user_action
         )
@@ -147,9 +155,18 @@ class StateTracker:
 
         Parameters:
             user_action (dict): 
-            The user action of format dict('intent': string, 'inform_slots': dict,
-            'request_slots': dict) and changed to dict('intent': '', 'inform_slots': {},
-            'request_slots': {}, 'round': int, 'speaker': 'User')
+            The user action of format dict(
+                'intent': string, 
+                'inform_slots': dict,
+                'request_slots': dict
+            ) 
+            and changed to dict(
+                'intent': '', 
+                'inform_slots': {},
+                'request_slots': {}, 
+                'round': int, 
+                'speaker': 'User'
+            )
         """
 
         for key, value in user_action["inform_slots"].items():
