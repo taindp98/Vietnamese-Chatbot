@@ -69,9 +69,10 @@ def process_message(state_tracker_id, message):
     ]:
         fsm_agent = FiniteStateMachineAgent()
 
-        agent_act, regex_constraint = fsm_agent.get_agent_action(
+        agent_act, _ = fsm_agent.get_agent_action(
             state_tracker, user_action
         )
+		## 3. Natural Language Generation
 
         session_tracker[state_tracker_id] = (state_tracker, confirm_obj)
         agent_message = nlg_processor.run(agent_act, state_tracker, confirm_obj)
@@ -102,7 +103,7 @@ class ConversationManagement(APIView):
         request_content = dict(request.GET)
         userText = request_content["msg"][0]
         userId = request_content["_id"][0]
-        api_url = "http://127.0.0.1:8000/conversation"
+        api_url = "localhost:8000/conversation"
         input_data = {}
         input_data["message"] = str(userText)
         input_data["state_tracker_id"] = userId
