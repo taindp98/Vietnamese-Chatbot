@@ -70,7 +70,7 @@ class UserUnderstand:
 
                 elif catched_intent in ["not_intent"] and len(histories) != 0:
                     # check conversation history
-                    last_agent_action =  histories[-1]
+                    last_agent_action = histories[-1]
                     if last_agent_action["intent"] != "match_found":
                         user_inform_key = None
                         slot_inform = None

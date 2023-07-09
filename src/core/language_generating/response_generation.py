@@ -69,12 +69,9 @@ class ResponseGeneration:
         return [sentence]
 
     def _merge_found_results(self, inform_slot, found_result):
-        sentence_pattern = random.choice(
-            self.response_gallery["match_found"]["found"]
-        )
+        sentence_pattern = random.choice(self.response_gallery["match_found"]["found"])
         sentence = sentence_pattern.replace(
-            "*found_slot*",
-            self.response_gallery["agent_response_object"][inform_slot],
+            "*found_slot*", self.response_gallery["agent_response_object"][inform_slot],
         )
         if len(found_result) > 1:
             inform_value = ", ".join(found_result)
@@ -119,12 +116,10 @@ class ResponseGeneration:
             response_match = ""
             if confirm_obj:
                 for item in list_matched_slot:
-                    check_match = string_matching(
-                        confirm_obj[inform_slot], item
-                    )
+                    check_match = string_matching(confirm_obj[inform_slot], item)
                     if check_match:
                         break
-                
+
                 value_match = ""
                 if len(confirm_obj[inform_slot]) > 1:
                     if inform_slot != "point":
@@ -188,9 +183,7 @@ class ResponseGeneration:
                     list_responses.append(sentence)
                 else:
                     for item in list_matched_slot:
-                        sentence = self._merge_found_results(
-                            inform_slot, item
-                        )
+                        sentence = self._merge_found_results(inform_slot, item)
                         list_responses.append(sentence)
             else:
                 sentence = random.choice(

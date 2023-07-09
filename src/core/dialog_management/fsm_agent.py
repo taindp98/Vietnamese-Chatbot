@@ -1,5 +1,6 @@
 import random
 
+
 class FiniteStateMachineAgent:
     """
     The finite state machine agent that interacts with the user.
@@ -21,11 +22,7 @@ class FiniteStateMachineAgent:
 
         recursion_success = state_tracker.recursion_success
 
-        agent_action_tmpl = {
-            "intent": "",
-            "inform_slots": {},
-            "request_slots": {}
-        }
+        agent_action_tmpl = {"intent": "", "inform_slots": {}, "request_slots": {}}
         if recursion_success:
             agent_action_tmpl["intent"] = "match_found"
         else:

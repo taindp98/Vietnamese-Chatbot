@@ -73,11 +73,11 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--message", 
-        required=False, 
-        default="cho em xin Chỉ tiêu tuyển sinh năm 2020 của khối A1 ngành điện điện tử?", 
-        type=str, 
-        help="Insert your message"
+        "--message",
+        required=False,
+        default="cho em xin Chỉ tiêu tuyển sinh năm 2020 của khối A1 ngành điện điện tử?",
+        type=str,
+        help="Insert your message",
     )
 
     args = parser.parse_args()

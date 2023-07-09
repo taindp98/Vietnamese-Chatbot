@@ -11,6 +11,7 @@ class StateTracker:
     """Tracks the state of the episode/conversation an
         prepares the state representation for the agent.    
     """
+
     def __init__(self, root: str, database):
         """
         The constructor of StateTracker which creates a DB query object,

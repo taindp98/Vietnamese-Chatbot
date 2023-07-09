@@ -56,22 +56,17 @@ ROOT_URLCONF = "backend.urls"
 
 
 SETTINGS_PATH = os.path.join(
-    Path(__file__).resolve().parent.parent.parent,
-    "./channel/web"
+    Path(__file__).resolve().parent.parent.parent, "./channel/web"
 )
 
-STATICFILES_DIRS = (
-    os.path.join(SETTINGS_PATH, 'static'),
-)
+STATICFILES_DIRS = (os.path.join(SETTINGS_PATH, "static"),)
 
 STATIC_ROOT = os.path.join(SETTINGS_PATH, "")
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [
-            SETTINGS_PATH
-        ],
+        "DIRS": [SETTINGS_PATH],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -105,15 +100,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
 

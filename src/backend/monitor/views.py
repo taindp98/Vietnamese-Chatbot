@@ -113,11 +113,11 @@ class ConversationManagement(APIView):
             item.replace("\n", r"").replace(r'"', r"")
             for item in chatbot_respose["message"]
         ]
-         
+
         return Response({"message_list": mess_response}, status=200)
-    
+
     def post(self, request):
-        body_unicode = request.body.decode('utf-8')
+        body_unicode = request.body.decode("utf-8")
         input_data = json.loads(body_unicode)
         message = input_data["message"]
         if "state_tracker_id" not in input_data.keys():
@@ -147,8 +147,7 @@ class ConversationManagement(APIView):
 
         return Response(response_dict, status=200)
 
+
 def home(request):
     ui_src_path = os.path.join("templates", "bot.html")
     return render(request, ui_src_path)
-    
-        

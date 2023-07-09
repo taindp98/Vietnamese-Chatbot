@@ -7,7 +7,5 @@ urlpatterns = [
     path(
         "conversation", ConversationManagement.as_view(), name="conversation_management"
     ),
-    path(
-        "", home, name="BK Assistant Home"
-    )
+    path("", home, name="BK Assistant Home"),
 ]

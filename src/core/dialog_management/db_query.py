@@ -5,6 +5,7 @@ import os
 
 from .utils import load_pattern
 
+
 class DBQuery:
     """Queries the database for the state tracker."""
 
