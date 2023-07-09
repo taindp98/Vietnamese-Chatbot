@@ -54,5 +54,6 @@
         "object",
         "register",
         "major"
-    ]
+    ],
+    "match_key": "major"
 }

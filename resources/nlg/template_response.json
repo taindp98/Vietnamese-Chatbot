@@ -8,6 +8,18 @@
         ],
         "found_major": [
             "Dưới đây là thông tin bạn cần tìm."
+        ],
+        "agree":[
+            "Đúng rồi! Thông tin *arg1* bạn cần là *arg2*"
+        ],
+        "disagree":[
+            "Sai rồi! Thông tin *arg1* không phải là *arg2*"
+        ],
+        "point_congrats":[
+            "Chúc mừng bạn! Điểm của bạn cao hơn điểm chuẩn được công bố"
+        ],
+        "point_condolences":[
+            "Điểm của bạn thấp hơn điểm chuẩn được công bố!"
         ]
     },
     "request": {

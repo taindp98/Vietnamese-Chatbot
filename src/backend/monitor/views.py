@@ -19,7 +19,6 @@ from src.core.language_understanding import UserUnderstand
 from src.core.dialog_management import (
     FiniteStateMachineAgent,
     StateTracker,
-    get_agent_action,
 )
 from src.core.language_generating import ResponseGeneration
 
@@ -67,12 +66,10 @@ def process_message(state_tracker_id, message):
         "thanks",
         "start",
     ]:
-        fsm_agent = FiniteStateMachineAgent(
-            root=os.path.join(WORKSPACE, "resources/dm")
-        )
+        fsm_agent = FiniteStateMachineAgent()
 
-        agent_act, regex_constraint = get_agent_action(
-            state_tracker, fsm_agent, user_action
+        agent_act, regex_constraint = fsm_agent.get_agent_action(
+            state_tracker, user_action
         )
 
         session_tracker[state_tracker_id] = (state_tracker, confirm_obj)

@@ -1,12 +1,14 @@
 from collections import defaultdict
 import copy
 import re
+import os
 
+from .utils import load_pattern
 
 class DBQuery:
     """Queries the database for the state tracker."""
 
-    def __init__(self, database):
+    def __init__(self, root: str, database):
         """
         The constructor for DBQuery.
 
@@ -15,12 +17,11 @@ class DBQuery:
         """
 
         self.database = database
-        # {frozenset: {string: int}} A dict of dicts
         self.cached_db_slot = defaultdict(dict)
-        # {frozenset: {'#': {'slot': 'value'}}} A dict of dicts of dicts, a dict of DB sub-dicts
         self.cached_db = defaultdict(dict)
-        self.no_query = ["major", "_id"]
-        self.match_key = "major"
+        constants = load_pattern(os.path.join(root, "constants.json"))
+        self.match_key = constants["match_key"]
+        self.no_query = [self.match_key, "_id"]
         self.regex_constraint = {}
 
     def fill_inform_slot(self, inform_slot_to_fill, current_inform_slots, user_action):
@@ -32,7 +33,8 @@ class DBQuery:
 
         Parameters:
             inform_slot_to_fill (dict): Inform slots to fill with values
-            current_inform_slots (dict): Current inform slots with values from the StateTracker
+            current_inform_slots (dict): Current inform slots with values 
+            from the StateTracker
 
         Returns:
             dict: inform_slot_to_fill filled with values
@@ -43,39 +45,15 @@ class DBQuery:
 
         key = list(inform_slot_to_fill.keys())[0]
 
-        # print('>'*50)
-        # print(key)
-        # print('>'*50)
-        # This removes the inform we want to fill from the current informs if it is present in the current informs
-        # so it can be re-queried
         current_informs = copy.deepcopy(current_inform_slots)
         current_informs.pop(key, None)
 
-        # db_results is a dict of dict in the same exact format as the db, it is just a subset of the db
         db_results = self.get_db_results(current_informs, user_action)
-        # print("current informs: {}".format(current_informs))
-
         filled_inform = {}
         values_dict = self._count_slot_values(key, db_results)
-        # print('values_dict',values_dict)
-        # print("key: {}".format(key))
-        # print("db results: {}".format(db_results))
         if key == self.match_key:
             filled_inform[key] = list(db_results)[0]
         elif values_dict:
-            # # Get key with max value (ie slot value with highest count of available results)
-            # # filled_inform[key] = max(values_dict, key=values_dict.get)
-            # values_dict_sort = {k: v for k, v in sorted(values_dict.items(), key=lambda item: item[1])}
-            # key_sort = list(values_dict_sort.keys())
-            # key_vote = None
-            # if len(key_sort) > 1:
-            #     if key_sort[-1]:
-            #         key_vote = key_sort[-1]
-            #     else:
-            #         key_vote = key_sort[-2]
-            # else:
-            #     key_vote = key_sort[0]
-            # filled_inform[key] = key_vote
             filled_inform[key] = list(max(values_dict, key=values_dict.get))
 
         else:
@@ -85,7 +63,8 @@ class DBQuery:
 
     def _count_slot_values(self, key, db_subdict):
         """
-        Return a dict of the different values and occurrences of each, given a key, from a sub-dict of database
+        Return a dict of the different values and occurrences of each,
+        given a key, from a sub-dict of database
 
         Parameters:
             key (string): The key to be counted
@@ -109,14 +88,10 @@ class DBQuery:
                     ]
 
                 tp_slot_value = tuple(slot_value)
-                # print(type(tp_slot_value))
-                # This will add 1 to 0 if this is the first time this value has been encountered, or it will add 1
-                # to whatever was already in there
                 slot_values[tp_slot_value] += 1
         return slot_values
 
     def check_match_sublist_and_substring(self, list_children, list_parent):
-        # print("match sublist")
         count_match = 0
         for children_value in list_children:
             for parent_value in list_parent:
@@ -124,7 +99,6 @@ class DBQuery:
                     count_match += 1
                     break
         if count_match == len(list_children):
-            # print("match sublist")
             return True
         return False
 
@@ -151,7 +125,7 @@ class DBQuery:
             final_list.append(all_dict)
         return final_list[0]
 
-    def convert_constraint(self, constraints, user_action):
+    def convert_constraint(self, constraints):
         """
         input dict các thực thể theo từng slot {entity_slot:[entity_mess]}
         return câu query mongodb
@@ -224,52 +198,24 @@ class DBQuery:
         inform_items = {k: tuple(v) for k, v in tuple_new_constraint.items()}.items()
         inform_items = frozenset(inform_items)
 
-        # inform_items = frozenset(new_constraints.items())
         cache_return = self.cached_db[inform_items]
 
         if cache_return == None:
-            # If it is none then no matches fit with the constraints so return an empty dict
             return {}
-        # if it isnt empty then return what it is
         if cache_return:
             return cache_return
-        # else continue on
 
         available_options = {}
-        # results=[]
 
-        self.regex_constraint = self.convert_constraint(new_constraints, user_action)
-        # print('#'*100)
-        # print('regex_constraint',regex_constraint)
+        self.regex_constraint = self.convert_constraint(new_constraints)
         results = self.database.general.find(self.regex_constraint)
         for result in results:
-            # đổi từ object id sang string và dùng id đó làm key (thay vì dùng index của mảng để làm key vì không xác định đc index)
             result["_id"] = str(result["_id"])
             available_options.update({result["_id"]: result})
             self.cached_db[inform_items].update({result["_id"]: result})
 
-        # i=0
-        # for data in self.database:
-        #     check_match=True
-        #     for constraint_key in list(new_constraints.keys()):
-        #         if not self.check_match_sublist_and_substring(new_constraints[constraint_key],data[constraint_key]): #check not sublist and substring
-        #             check_match=False
-        #     if check_match:
-        #         # print("have match result")
-        #         # results.append(data)
-        #         available_options.update({str(i):data})
-        #         self.cached_db[inform_items].update({str(i): data})
-        #     i+=1
-
-        # for result in results:
-        #     available_options.update({str(result['_id']):result})
-        #     self.cached_db[inform_items].update({str(result['_id']): result})
-
         if not available_options:
             self.cached_db[inform_items] = None
-
-        #   print("no match: ")
-        # print(new_constraints)
 
         return available_options
 
@@ -298,61 +244,27 @@ class DBQuery:
         if cache_return:
             return cache_return
 
-        # If it made it down here then a new query was made and it must add it to cached_db_slot and return it
         # Init all key values with 0
         db_results = {key: 0 for key in current_informs.keys()}
         db_results["matching_all_constraints"] = 0
 
-        # for data in self.database:
-        #     all_slots_match = True
-        #     for CI_key, CI_value in current_informs.items():
-        #         # Skip if a no query item and all_slots_match stays true
-        #         if CI_key in self.no_query:
-        #             continue
-        #         # If anything all_slots_match stays true AND the specific key slot gets a +1
-        #         if CI_value == 'anything':
-        #             db_results[CI_key] += 1
-        #             continue
-        #         if CI_key in list(data.keys()):
-        #             # print("-----------------CI_value")
-        #             # print(type(CI_value))
-        #             # print("-----------------data[CI_key]")
-        #             # print(type(data[CI_key]))
-        #             if self.check_match_sublist_and_substring(CI_value,data[CI_key]):
-        #                 db_results[CI_key] += 1
-        #             else:
-        #                 all_slots_match = False
-        #         else:
-        #             all_slots_match = False
-        #     if all_slots_match: db_results['matching_all_constraints'] += 1
-        ################
-        # """
-        # print(current_informs)
         for CI_key, CI_value in current_informs.items():
             # Skip if a no query item and all_slots_match stays true
             if CI_key in self.no_query:
                 continue
-            # If anything all_slots_match stays true AND the specific key slot gets a +1
             if CI_value == "anything":
                 db_results[CI_key] = self.database.general.count()
                 # db_results[CI_key] += 1
                 del temp_current_informs[CI_key]
                 continue
-            # print()
+
             db_results[CI_key] = self.database.general.count(
-                self.convert_constraint({CI_key: CI_value}, user_action)
+                self.convert_constraint({CI_key: CI_value})
             )
-            # print(CI_key)
-            # print(db_results[CI_key])
 
-        # current_informs_constraint={k:v.lower() for k,v in temp_current_informs.items()}
-        # print('temp_current_informs,user_action',temp_current_informs,user_action)
         db_results["matching_all_constraints"] = self.database.general.count(
-            self.convert_constraint(temp_current_informs, user_action)
+            self.convert_constraint(temp_current_informs)
         )
-        # update cache (set the empty dict)
-
-        # """
 
         self.cached_db_slot[inform_items].update(db_results)
         assert self.cached_db_slot[inform_items] == db_results

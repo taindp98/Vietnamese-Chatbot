@@ -5,7 +5,7 @@ import argparse
 
 from core.language_understanding import UserUnderstand
 from core.dialog_management import FiniteStateMachineAgent
-from core.dialog_management import StateTracker, get_agent_action
+from core.dialog_management import StateTracker
 from core.language_generating import ResponseGeneration
 
 load_dotenv()
@@ -49,10 +49,8 @@ def main(state_tracker_id, message):
         "thanks",
         "start",
     ]:
-        fsm_agent = FiniteStateMachineAgent(
-            root=os.path.join(WORKSPACE, "resources/dm")
-        )
-        agent_act, _ = get_agent_action(state_tracker, fsm_agent, user_action)
+        fsm_agent = FiniteStateMachineAgent()
+        agent_act, _ = fsm_agent.get_agent_action(state_tracker, user_action)
 
         session_tracker[state_tracker_id] = (state_tracker, confirm_obj)
         agent_message = nlg_processor.run(agent_act, state_tracker, confirm_obj)
@@ -86,4 +84,4 @@ if __name__ == "__main__":
 
     state_tracker_id = 0
     response = main(state_tracker_id, args.message)
-    print(response)
+    # print(response)

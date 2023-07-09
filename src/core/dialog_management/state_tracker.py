@@ -12,21 +12,17 @@ class StateTracker:
 
     def __init__(self, root: str, database):
         """
-        The constructor of StateTracker.
-
-        The constructor of StateTracker which creates a DB query object, creates necessary state rep. dicts, etc. and
-        calls reset.
+        The constructor of StateTracker which creates a DB query object,
+        creates necessary state rep. dicts, etc. and calls reset.
 
         Parameters:
             database (dict): The database with format dict(long: dict)
-            constants (dict): Loaded constants in dict
-
         """
         constants = load_pattern(os.path.join(root, "constants.json"))
         self.map_order_entity = load_pattern(os.path.join(root, "map_fsm.json"))
         self.history = []
-        self.db_helper = DBQuery(database)
-        self.match_key = "major"
+        self.db_helper = DBQuery(root=root, database=database)
+        self.match_key = constants["match_key"]
         self.intents_dict = convert_list_to_dict(constants["all_intents"])
         self.num_intents = len(constants["all_intents"])
         self.slots_dict = convert_list_to_dict(constants["all_slots"])
@@ -46,13 +42,13 @@ class StateTracker:
         self.flag_update_user = False
 
         self.regex_constraint = {}
-        # self.all_slot = self.current_request_slots + list(self.current_informs.keys())
 
     def reset(self):
-        """Resets current_informs, history and round_num."""
+        """
+        Resets current_informs, history and round_num.
+        """
 
         self.current_informs = {}
-        # A list of the dialogues (dicts) by the agent and user so far in the conversation
         self.history = []
         self.round_num = 0
         self.current_request_slots = []
@@ -74,23 +70,22 @@ class StateTracker:
     def update_state_agent(self, agent_action, user_action):
         """
         Updates the dialogue history with the agent's action and augments the agent's action.
-
-        Takes an agent action and updates the history. Also augments the agent_action param with query information and
+        Takes an agent action and updates the history. 
+        Also augments the agent_action param with query information and
         any other necessary information.
 
         Parameters:
-            agent_action (dict): The agent action of format dict('intent': string, 'inform_slots': dict,
-                                 'request_slots': dict) and changed to dict('intent': '', 'inform_slots': {},
-                                 'request_slots': {}, 'round': int, 'speaker': 'Agent')
+            agent_action (dict):
+                The agent action of format dict('intent': string, 'inform_slots': dict,
+                'request_slots': dict) and changed to dict('intent': '', 'inform_slots': {},
+                'request_slots': {}, 'round': int, 'speaker': 'Agent')
 
-        chỉ query khi có có current inform khi agent action là inform
         """
         # print('current_informs --> constraints',self.current_informs)
         # print('agent action',agent_action['inform_slots'])
         db_results_dict = self.db_helper.get_db_results_for_slots(
             self.current_informs, user_action
         )
-        # print('db match',db_results_dict)
 
         if agent_action["intent"] == "inform":
             assert agent_action["inform_slots"]
@@ -104,7 +99,6 @@ class StateTracker:
             assert value != "PLACEHOLDER", "KEY: {}".format(key)
             self.current_informs[key] = value
 
-        # If intent is match_found then fill the action informs with the matches informs (if there is a match)
         elif agent_action["intent"] == "match_found":
             assert not agent_action[
                 "inform_slots"
@@ -113,12 +107,10 @@ class StateTracker:
             db_results = self.db_helper.get_db_results(
                 self.current_informs, user_action
             )
-            # print(self.db_helper.regex_constraint)
             self.regex_constraint = self.db_helper.regex_constraint
             if db_results:
-                # Arbitrarily pick the first value of the dict
                 db_results_no_empty = {}
-                if self.current_request_slots[0] != "major":
+                if self.current_request_slots[0] != self.match_key:
                     for key, value in db_results.items():
                         if (
                             isinstance(value[self.current_request_slots[0]], list)
@@ -129,7 +121,6 @@ class StateTracker:
                     key, value = list(db_results_no_empty.items())[0]
                     value = list(db_results_no_empty.values())
                 else:
-                    ## lấy key đầu tiên trong list db query được
                     key, value = list(db_results.items())[0]
                     value = list(db_results.values())
 
@@ -144,21 +135,21 @@ class StateTracker:
         self.flag_update_agent = False
         self.history.append(agent_action)
 
-        # return True
         self.flag_update_agent = True
-        # self.flag_update_user = False
 
     def update_state_user(self, user_action):
         """
-        Updates the dialogue history with the user's action and augments the user's action.
+        Updates the dialogue history with the user's
+        action and augments the user's action.
 
-        Takes a user action and updates the history. Also augments the user_action param with necessary information.
+        Takes a user action and updates the history.
+        Also augments the user_action param with necessary information.
 
         Parameters:
-            user_action (dict): The user action of format dict('intent': string, 'inform_slots': dict,
-                                 'request_slots': dict) and changed to dict('intent': '', 'inform_slots': {},
-                                 'request_slots': {}, 'round': int, 'speaker': 'User')
-
+            user_action (dict): 
+            The user action of format dict('intent': string, 'inform_slots': dict,
+            'request_slots': dict) and changed to dict('intent': '', 'inform_slots': {},
+            'request_slots': {}, 'round': int, 'speaker': 'User')
         """
 
         for key, value in user_action["inform_slots"].items():
@@ -180,10 +171,7 @@ class StateTracker:
             )
             self.list_state_tracker += self.all_slot
         self.round_num += 1
-        # return True
         self.flag_update_user = True
-
-        # return self.current_request_slots,list(self.current_informs.keys())
 
     def define_target(self):
         list_define_target = []
@@ -259,5 +247,5 @@ class StateTracker:
                             if target_match not in self.list_state_tracker:
                                 self.list_state_tracker.append(target_match)
                                 return True
-        ## recursion
+        # recursion
         self.recursion_find_best_way()
