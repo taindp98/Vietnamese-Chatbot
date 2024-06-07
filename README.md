@@ -91,5 +91,12 @@ All contributions are welcome.
 
 ## Citation
 ```
-T. Le-Tien, T. Nguyen-D-P and V. Huynh-Y, "Developing a Chatbot system using Deep Learning based for Universities consultancy," 2022 16th International Conference on Ubiquitous Information Management and Communication (IMCOM), Seoul, Korea, Republic of, 2022, pp. 1-7, doi: 10.1109/IMCOM53663.2022.9721735.
+@inproceedings{le2022developing,
+  title={Developing a Chatbot system using Deep Learning based for Universities consultancy},
+  author={Le-Tien, Thuong and Nguyen-DP, Tai and Huynh-Y, Vy},
+  booktitle={2022 16th International Conference on Ubiquitous Information Management and Communication (IMCOM)},
+  pages={1--7},
+  year={2022},
+  organization={IEEE}
+}
 ```
