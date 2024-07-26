@@ -1,7 +1,6 @@
 # The Implementation of a Vietnamese Chatbot Serving University Consultancy
 
-Inspired by the recent successes of deep learning in Natural Language Processing(NLP), we propose a chatbot system using Deep Learning for Vietnamese Universities consultancy. 
-[https://www.youtube.com/watch?v=SDu7Nhi26kM](https://www.youtube.com/watch?v=SDu7Nhi26kM)
+Inspired by the recent successes of deep learning in Natural Language Processing(NLP), we propose a chatbot system using Deep Learning for Vietnamese Universities consultancy. [[Paper]](https://ieeexplore.ieee.org/abstract/document/9721735)[[Demo]](https://www.youtube.com/watch?v=SDu7Nhi26kM)
 
 <p>
 <img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white&style=flat" />
