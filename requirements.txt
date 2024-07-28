@@ -13,4 +13,4 @@ python-dotenv==0.21.1
 fuzzywuzzy==0.18.0
 django-admin==2.0.2
 django==3.2.24
-djangorestframework==3.14.0
+djangorestframework==3.15.2
