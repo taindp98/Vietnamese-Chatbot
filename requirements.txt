@@ -5,7 +5,7 @@ Flask-PyMongo==2.3.0
 gunicorn==22.0.0
 h5py==2.10.0
 pandas==1.1.5
-pymongo==3.11.2
+pymongo==4.6.3
 pyvi==0.1
 requests==2.31.0
 regex==2023.6.3
