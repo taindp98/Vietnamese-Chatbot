@@ -31,7 +31,7 @@
 
 ## Update
 - [TBD]: We are scaling the bot for general tasks.
-- [2021]: We released the first version of the codebase, focusing on university consultancy tasks.
+- [03/2021]: We released the first version of the codebase, focusing on university consultancy tasks.
 
 ## System Design
 
