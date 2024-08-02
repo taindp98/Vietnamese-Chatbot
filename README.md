@@ -1,11 +1,19 @@
 <h1>
     <p align="center">
-	The Implementation of a Vietnamese Chatbot Serving University Consultancy
+	The Implementation of a Simple Vietnamese Chatbot from Scratch
     </p>
 </h1>
 
-We propose a chatbot system from scratch using deep learning for Vietnamese university consultancy. [[Paper]](https://ieeexplore.ieee.org/abstract/document/9721735)[[Demo]](https://www.youtube.com/watch?v=SDu7Nhi26kM)
+We propose a chatbot system from scratch using deep learning for Vietnamese university consultancy.
 
+<p align="center">
+<a href="https://ieeexplore.ieee.org/abstract/document/9721735" target="_blank">
+  <img alt="IEEE" src="https://img.shields.io/badge/IEEE-9721735-0033A0?logo=ieee&style=flat" />
+</a>
+<a href="https://www.youtube.com/watch?v=SDu7Nhi26kM" target="_blank">
+  <img alt="YouTube" src="https://img.shields.io/badge/YouTube-Demo-red?logo=youtube&style=flat" />
+</a>
+</p>
 <p align="center">
 <img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white&style=flat" />
 <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=white&style=flat" />
