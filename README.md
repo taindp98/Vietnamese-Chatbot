@@ -1,11 +1,9 @@
 <h1>
   <img alt="ConAN logo" src="./docs/bg_chatbot.png" style="width: 100%;">
   <p align="center">
-	The Implementation of a Simple Vietnamese Chatbot from Scratch
+	Simple Vietnamese Chatbot from Scratch
   </p>
 </h1>
-
-We propose a chatbot system from scratch using deep learning for Vietnamese university consultancy.
 
 <p align="center">
 <a href="https://ieeexplore.ieee.org/abstract/document/9721735" target="_blank">
@@ -21,6 +19,8 @@ We propose a chatbot system from scratch using deep learning for Vietnamese univ
 <img alt="MongoDB" src="https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white&style=flat" />
 <img alt="Django" src="https://img.shields.io/badge/Django-092E20?logo=django&logoColor=white&style=flat" />
 </p>
+
+We propose a chatbot system from scratch using deep learning for Vietnamese university consultancy.
 
 ## Table of Contents
 
