@@ -20,19 +20,22 @@
 <img alt="Django" src="https://img.shields.io/badge/Django-092E20?logo=django&logoColor=white&style=flat" />
 </p>
 
-We propose a chatbot system from scratch using deep learning for Vietnamese university consultancy.
-
 ## Table of Contents
 
+- [Update](#update)
 - [System Design](#system-design)
 - [Quickstart](#quickstart)
 - [Contributing](#contributing)
 - [Star](#star)
 - [Citation](#citation)
 
+## Update
+- [TBD]: We are scaling the bot for general tasks.
+- [2021]: We released the first version of the codebase, focusing on university consultancy tasks.
+
 ## System Design
 
-In the following, we define two problems that are at the center of the chatbot system. The first problem aims to realize the ability of natural language understanding, i.e., developing the necessary mechanism for the software system to understand natural language questions as a human would do. The second problem aims to extract the relevant information from a domain-specific database so that answers can be generated to be fed back to the user. Typically, a dialogue system architecture can be divided into 2 main parts:
+In the following, we define two problems at the chatbot system's center. The first problem aims to realize the ability of natural language understanding, i.e., developing the necessary mechanism for the software system to understand natural language questions as a human would do. The second problem aims to extract the relevant information from a domain-specific database so that answers can be generated to be fed back to the user. Typically, a dialogue system architecture can be divided into 2 main parts:
 
 - The natural language processing core consists of 3 tasks:
     - Natural Language Understanding (NLU) includes human intent recognition and name-entity recognition.
@@ -40,7 +43,7 @@ In the following, we define two problems that are at the center of the chatbot s
     - Natural Language Generation (NLG) is based on existing sentence patterns and replaces found information based on semantic frameworks.
 - User interface and management interface for administrators:
     - The user interface includes a live chat application on the website and a mobile chat application.
-    - The database management tool for administrators to ensure full implementation of the basic CRUD operations that is **MONGODB**
+    - The database management tool for administrators to ensure full implementation of the basic CRUD operations is **MONGODB**
 
 ## Quickstart
 
@@ -97,7 +100,7 @@ Django version 3.2.20, using settings 'backend.settings'
 Starting development server at http://127.0.0.1:8000/   
 Quit the server with CTRL-BREAK.
 ```
-This message implies there is an API that are listening on the port 8000 of your machine. To call this:
+This message implies there is an API that is listening on the port 8000 of your machine. To call this:
 ```cURL
 curl --location --request POST 'http://127.0.0.1:8000/conversation' \
 --header 'Content-Type: application/json' \
