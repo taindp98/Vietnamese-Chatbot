@@ -1,7 +1,8 @@
 <h1>
-    <p align="center">
+  <img alt="ConAN logo" src="./docs/bg_chatbot.png" style="width: 100%;">
+  <p align="center">
 	The Implementation of a Simple Vietnamese Chatbot from Scratch
-    </p>
+  </p>
 </h1>
 
 We propose a chatbot system from scratch using deep learning for Vietnamese university consultancy.
