@@ -1,5 +1,5 @@
 <h1>
-  <img alt="ConAN logo" src="./docs/bg_chatbot.png" style="width: 100%;">
+  <img alt="chatbot-background" src="./docs/bg_chatbot.png" style="width: 100%;">
   <p align="center">
 	Simple Vietnamese Chatbot from Scratch
   </p>
